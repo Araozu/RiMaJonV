@@ -3,23 +3,18 @@ body
   background-color: var(--color-fondo)
   color: var(--color-texto)
 
-
-.tema-claro
-  --color-fondo: #ffffff
-  --color-texto: #151515
-  --color-borde: gray
-
-
-.tema-oscuro
-  --color-fondo: #151515
-  --color-texto: #dedede
-  --color-borde: #c1c1c1
-
-
+// Claro
 .tema-automatico
   --color-fondo: #ffffff
   --color-texto: #151515
   --color-borde: gray
+  --color-texto-carta-roja: #b71c1c
+  --color-fondo-carta-roja: #ffffff
+  --color-fondo-dragon-rojo: #ffffff
+  --color-fondo-dragon-verde: #ffffff
+  --color-fondo-dragon-azul: #ffffff
+  --color-fondo-reyes: #ffffff
+  --color-texto-reyes: #2E7D32
 
 
 @media (prefers-color-scheme: dark)
@@ -27,3 +22,10 @@ body
     --color-fondo: #151515
     --color-texto: #dedede
     --color-borde: #c1c1c1
+    --color-texto-carta-roja: #dedede
+    --color-fondo-carta-roja: #b71c1c
+    --color-fondo-dragon-rojo: #b71c1c
+    --color-fondo-dragon-verde: #2E7D32
+    --color-fondo-dragon-azul: #1565C0
+    --color-fondo-reyes: #2E7D32
+    --color-texto-reyes: #ffffff

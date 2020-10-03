@@ -151,33 +151,30 @@ export default defineComponent({
     vertical-align: middle
     display: inline-block
 
+
 .carta-cNegro
     background-color: var(--color-fondo)
     color: var(--color-texto)
 
 .carta-cRojo
-    background-color: #b71c1c
-    color: var(--color-texto)
+    background-color: var(--color-fondo-carta-roja)
+    color: var(--color-texto-carta-roja)
 
 .carta-cReyes
-    background-color: #2E7D32
-    color: var(--color-texto)
+    background-color: var(--color-fondo-reyes)
+    color: var(--color-texto-reyes)
 
 .carta-dNegro
     background-color: var(--color-fondo)
-    color: var(--color-texto)
 
 .carta-dRojo
-    background-color: #b71c1c
-    color: var(--color-texto)
+    background-color: var(--color-fondo-dragon-rojo)
 
 .carta-dVerde
-    background-color: #2E7D32
-    color: var(--color-texto)
+    background-color: var(--color-fondo-dragon-verde)
 
 .carta-dAzul
-    background-color: #1565C0
-    color: var(--color-texto)
+    background-color: var(--color-fondo-dragon-azul)
 
 .carta-
     opacity: 0
