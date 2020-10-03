@@ -1,0 +1,29 @@
+body
+  font-family: "Pt Serif", serif
+  background-color: var(--color-fondo)
+  color: var(--color-texto)
+
+
+.tema-claro
+  --color-fondo: #ffffff
+  --color-texto: #151515
+  --color-borde: gray
+
+
+.tema-oscuro
+  --color-fondo: #151515
+  --color-texto: #dedede
+  --color-borde: #c1c1c1
+
+
+.tema-automatico
+  --color-fondo: #ffffff
+  --color-texto: #151515
+  --color-borde: gray
+
+
+@media (prefers-color-scheme: dark)
+  .tema-automatico
+    --color-fondo: #151515
+    --color-texto: #dedede
+    --color-borde: #c1c1c1

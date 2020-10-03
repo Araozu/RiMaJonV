@@ -1,0 +1,402 @@
+<template lang="pug">
+div
+    h1 Sobre el juego
+    p Ri Ma Jon es un juego inspirado en Mahjong, pero ejecutado con cartas.
+
+    h2 Cartas
+    p Existen 108 cartas en el juego:
+
+    carta(v-for="(c, i) in cartas" :valor="c" :key="i")
+
+    p 4 cartas de los números 1 al 10 de color negro y rojo, 4 cartas de dragones de 4 colores, 4 J, Q y K.
+
+    h2 Mano
+    p Cada mano se compone de 10 + 1 cartas aleatorias.
+    grupo-cartas(:cartas="cartasR")
+
+    h2 Flujo del juego
+    p.
+        Hay 4 jugadores, cada uno con una mano de 10 cartas. En cada turno el jugador extrae una carta
+        y la une a su mano. Luego, debe descartar 1 carta.
+    p El objetivo del juego es formar una mano con 3 grupos y 1 par de cartas.
+
+    h2 Par de cartas
+    p Un par son 2 cartas del mismo color y valor.
+    grupo-cartas(:cartas="parCartasR")
+
+    h2 Grupo de cartas
+    p Un grupo de cartas puede ser cualquiera de los siguientes:
+    div(style="padding-left: 2rem")
+        h3 Secuencia
+        p 3 cartas del mismo color y con números consecutivos
+        grupo-cartas(:cartas="seqCartasR")
+        p J, Q, K y los dragones no pueden formar sequencias.
+        p Los números deben ser consecutivos: 1 2 3 es válido, pero 9 10 1 no lo es.
+
+        h3 Triple
+        p 3 cartas del mismo color y valor.
+        grupo-cartas(:cartas="triCartasR")
+
+        h3 Cuádruple
+        p 4 cartas del mismo color y valor.
+        grupo-cartas(:cartas="cuaCartasR")
+        p Cuando se forma un cuádruple se agrega una carta a la mano.
+
+    h2 Mano lista
+    p Una mano está lista cuando solo le falta 1 carta para ganar
+
+    grupo-cartas(:cartas="[10, 10, 11, 34, 36, 38, 38, 38, 128, 128]")
+    p.
+        Por ejemplo, la mano anterior está lista, porque solo le falta un dragon verde
+        para completar sus 3 grupos y 1 par.
+    p.
+        En esa mano, el primer grupo es un triple negro, el segundo grupo una secuencia de A-2-3 rojo, el
+        par son dos 3 rojos, y el último grupo sería un triple de dragon verde.
+
+    h2 Robar cartas
+    p Puedes robar cartas que tus oponentes descartan para formar tu mano en varias situaciones:
+
+    div.pad
+        h3 Robar para formar una secuencia
+        p.
+            Si tu oponente a tu izquierda descarta una carta que necesitas para formar una secuencia,
+            puedes robarla y formar tu secuencia.
+        p Por ejemplo, a las siguientes dos cartas les falta un 3 o 6 rojo para formar una secuencia.
+        grupo-cartas(:cartas="[40, 42]")
+        br
+        p Al siguiente par le falta un 6 negro para formar una secuencia.
+        grupo-cartas(:cartas="[10, 14]")
+
+        h3 Robar para formar un triple
+        p.
+            Si algún oponente descarta una carta que necesitas para formar un triple,
+            puedes robarla.
+        p Por ejemplo, al siguiente par le falta una J verde para formar un triple
+        grupo-cartas(:cartas="[192, 192]")
+
+        h3 Robar para formar un cuádruple
+        p.
+            Si algún oponente descarta una carta que necesitas para formar un cuádruple,
+            puedes robarla.
+        p Por ejemplo. al siguiente triple le falta un dragon azul para formar un cuádruple.
+        grupo-cartas(:cartas="[160, 160, 160]")
+
+        h3 Robar para ganar
+        p.
+            Si tu mano está lista, y algún oponente descarta la carta que necesitas para ganar,
+            puedes robarla. No importa si hacerlo forma una secuencia, triple, cuádruple o par.
+
+        h3 Prioridad de los robos
+        p.
+            Existe la posibilidad de que varios jugadores puedan robar una carta a la vez.
+            Si esto sucede la prioridad es la siguiente:
+        ol
+            li Robar para ganar
+            li Robar para cuádruple
+            li Robar para triple
+            li Robar para secuencia
+
+        h3 Consecuencias del robo
+        p Cuando robas una carta suceden 2 cosas:
+        ul
+            li Todos pueden ver la secuencia/triple/cuádruple que formaste
+            li No puedes cambiar esa secuencia/triple/cuádruple
+        p Adicionalmente, al robar una carta tu mano se considera "abierta"
+
+    h2 Mano abierta y cerrada
+    p Se dice que tu mano está abierta cuando tus oponentes pueden ver uno o más grupos de tu mano.
+    p Robar una carta para ganar no cuenta como abrir tu mano.
+
+    h2 Restricciones para ganar
+    ol
+        li No puedes ganar robando una carta que descartaste. No importa cuando.
+
+    h2 Indicadores de bonus
+    div
+        p Todas las partidas tienen 10 cartas reservadas que todos pueden ver. Estos son los indicadores de bonus.
+        grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
+        br
+        grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
+
+        p Al inicio de la partida se revela el primer indicador:
+        grupo-cartas(:cartas="[14, 0, 0, 0, 0]")
+        br
+        grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
+
+        p Los siguientes 4 indicadores se revelan despues de 32/16/8/4 turnos.
+        p Los últimos 5 indicadores se revelan cada vez que alguien declara un cuádruple, uno a la vez.
+
+        div.pad
+            h3 Funcionamiento
+
+            p Cada indicador apunta a un tipo de carta (llamado bonus), haciendo que esa carta valga 1 punto extra.
+            p Los bonus son:
+            ol
+                li Del mismo tipo que el indicador
+                li La carta que sigue al indicador
+
+            p Por ejemplo, si los indicadores son los siguientes:
+            grupo-cartas(:cartas="[48, 0, 0, 0, 0]")
+            br
+            grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
+
+            p Entonces el bonus es el 9 rojo. Cada uno de ellos vale 1 punto.
+            grupo-cartas(:cartas="[50]")
+
+            br
+            br
+            p Si los indicadores son los siguientes:
+            grupo-cartas(:cartas="[2, 38, 52, 0, 0]")
+            br
+            grupo-cartas(:cartas="[96, 192, 0, 0, 0]")
+
+            p Los bonus son el 2 negro, 4 rojo, A rojo, dragon verde y Q
+            grupo-cartas(:cartas="[4, -1, 40, -1, 34, -1, 128, -1, 224]")
+
+            h3 Secuencia de las cartas
+
+            p La secuencia de las cartas es la siguiente:
+            grupo-cartas(:cartas="[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]")
+            p Cuando se llega a la última carta de un tipo, se regresa al inicio.
+            p Por ejemplo, si el indicador es el 10 negro, entonces el bonus es el A negro.
+            br
+            grupo-cartas(:cartas="[34, 36, 38, 40, 42, 44, 46, 48, 50, 52]")
+            p Si el indicador es el 10 rojo, entonces el bonus es el A rojo.
+            br
+            grupo-cartas(:cartas="[64, 96, 128, 160]")
+            p Si el indicador es el dragon azul, entonces el bonus es el dragon negro.
+            br
+            grupo-cartas(:cartas="[192, 224, 256]")
+            p Si el indicador es K, entonces el bonus es J.
+            br
+
+            h3 Indicadores y bonus repetidos
+            p Si algún bonus se repite, cada uno de ellos brinda 1 punto.
+            p Si algún indicador se repite, cada uno de los bonus a los que apunta brinda 1 punto.
+
+            p Por ejemplo, si los indicadores son los siguientes:
+            grupo-cartas(:cartas="[12, 12, 0, 0, 0]")
+            br
+            grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
+
+            p.
+                Entonces cada 7 negro vale 2 puntos extra. Si juntas dos 7 negros tienes 4 puntos,
+                con tres 7 negros tienes 6 puntos, etc.
+
+
+    h2 Indicadores de dragones
+    div
+        p.
+            A cada partida se le asigna un color, y a cada jugador se le asigna otro. Esos colores indican
+            qué triple/cuáduple de dragones brindan 1 punto adicional.
+
+        p.
+            Por ejemplo, si la partida es de color rojo, y tu eres de color verde, entonces
+            cualquier triple/cuádruple del dragon rojo o verde da 3 puntos adicionales.
+
+        grupo-cartas(:cartas="[96, 96, 96, -1, 128, 128, 128]")
+
+
+    h2 Puntaje
+    p Cada mano completa vale una cantidad de puntos según las combinaciones de cartas que posee.
+
+    div.tabla-puntos
+
+        h3 1 punto - Bonus
+        div.yaku
+            p Cualquier bonus en una mano ganadora. 100% acumulable.
+
+        h3 3 puntos
+
+        div.yaku
+            p 2 secuencias iguales del mismo color.
+            grupo-cartas(:cartas="[2, 2, 4, 4, 6, 6, 44, 44, 44, 128, 128]")
+
+        div.yaku
+            p 1 triple o cuádruple de J, K o Q (acumulable).
+            grupo-cartas(:cartas="[5, 5, 5, 40, 42, 44, 128, 128, 256, 256, 256]")
+
+        div.yaku
+            p 3 secuencias
+            grupo-cartas(:cartas="[4, 6, 8, 12, 14, 16, 36, 38, 40, 96, 96]")
+
+        div.yaku
+            p 3 triples
+            grupo-cartas(:cartas="[6, 6, 6, 48, 48, 48, 160, 160, 160, 192, 192]")
+
+        div.yaku
+            p Solo números del 2 al 9
+            grupo-cartas(:cartas="[4, 4, 4, 4, 6, 8, 12, 12, 12, 40, 40]")
+
+        div.yaku
+            p Cada par o grupo contiene al menos un 1, 10, J, Q, K o dragón
+            grupo-cartas(:cartas="[2, 4, 6, 20, 20, 20, 48, 50, 52, 192, 192]")
+
+        div.yaku
+            p Solo cartas de color rojo
+            grupo-cartas(:cartas="[42, 42, 46, 48, 50, 52, 52, 52, 96, 96, 96,]")
+
+        div.yaku
+            p Solo cartas de color negro
+            grupo-cartas(:cartas="[4, 6, 8, 8, 8, 12, 14, 16, 64, 64, 64]")
+
+        div.yaku
+            p 1 triple/cuádruple del dragon del color de la partida o del jugador (acumulable).
+            grupo-cartas(:cartas="[6, 6, 6, 48, 48, 48, 160, 160, 160, 192, 192]")
+
+        h3 5 puntos
+
+        div.yaku
+            p 1,2,3,4,5,6,7,8,9 del mismo color
+            grupo-cartas(:cartas="[2, 4, 6, 8, 10, 12, 14, 16, 18, 128, 128]")
+
+        div.yaku
+            p 2,3,4,5,6,7,8,9,10 del mismo color
+            grupo-cartas(:cartas="[4, 6, 8, 10, 12, 14, 16, 18, 20, 41, 41]")
+
+        div.yaku
+            p 3 cuádruples
+            grupo-cartas(:cartas="[44, 44, -1, 128, 128, 128, 128, -1, 20, 20, 20, 20, -1, 40, 40, 40, 40]")
+
+        div.yaku
+            p 1 secuencia del mismo símbolo (no disponible)
+
+        h3 7 puntos
+
+        div.yaku
+            p 1,1,2,3,4,5,6,7,8,9,10 del mismo color
+            grupo-cartas(:cartas="[2, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]")
+            p No se acumula con 1,2,3,4,5,6,7,8,9.
+
+        div.yaku
+            p 1,2,3,4,5,6,7,8,9,10,10 del mismo color
+            grupo-cartas(:cartas="[34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 52]")
+            p No se acumula con 1,2,3,4,5,6,7,8,9.
+
+        div.yaku
+            p Solo 1 y 10
+            grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 52, 52, 53]")
+
+        div.yaku
+            p 3 triples de J, Q y K
+            grupo-cartas(:cartas="[192, 192, 192, 224, 224, 224, 256, 256, 256, 16, 16]")
+
+        div.yaku
+            p 1 par del mismo número, mismo color y mismo símbolo (no disponible)
+
+        h3 10 puntos
+
+        div.yaku
+            p Solo dragones
+            grupo-cartas(:cartas="[64, 64, 64, 96, 96, 96, 128, 128, 128, 160, 160]")
+
+        div.yaku
+            p Solo cartas de color verde
+            grupo-cartas(:cartas="[128, 128, 128, 192, 192, 192, 224, 224, 224, 256, 256]")
+
+        h3 15 puntos
+
+        div.yaku
+            p Huerfanos: Exactamente esta mano
+            grupo-cartas(:cartas="[2, 20, 34, 52, 64, 96, 128, 160, 192, 224, 256]")
+
+
+
+//
+</template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import carta from "@/components/carta.vue";
+import grupoCartas from "../../components/grupo-cartas.vue";
+
+const cartas = [2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15,
+    16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 34, 34, 35, 35, 36, 36, 37, 37, 38, 38, 39, 39, 40, 40, 41,
+    41, 42, 42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 51, 52, 52, 53, 53, 64, 64,
+    64, 64, 96, 96, 96, 96, 128, 128, 128, 128, 160, 160, 160, 160, 192, 192, 192, 192, 224, 224, 224, 224,
+    256, 256, 256, 256];
+
+const cartasR = (() => {
+    const indices = [];
+    for (let i = 0; i < 11; i++) {
+        let sigIndice = Math.floor(Math.random() * cartas.length);
+        while (indices.find((s) => s === sigIndice) !== undefined) {
+            sigIndice = Math.floor(Math.random() * cartas.length);
+        }
+        indices.push(sigIndice);
+    }
+    const cartasN = indices.map((i) => cartas[i]);
+    const ultimaCarta = cartasN[10];
+    cartasN.pop();
+
+    const cartasN2 = cartasN.sort((x, y) => (x < y) ? -1 : 1);
+    cartasN2.push(-1);
+    cartasN2.push(ultimaCarta);
+
+    return cartasN2;
+})();
+
+const seqCartasR = (() => {
+    let base = Math.round(Math.random() * 9) + 1;
+
+    let nums;
+    switch (base) {
+        case 1:
+            nums = [1, 2, 3];
+            break;
+        case 10:
+            nums = [8, 9, 10];
+            break;
+        default:
+            const n = Math.random();
+            if (n < 0.33 && base !== 2) {
+                nums = [base - 2, base - 1, base]
+            } else if (n < 0.66 && base !== 9) {
+                nums = [base, base + 1, base + 2]
+            } else {
+                nums = [base - 1, base, base + 1]
+            }
+    }
+
+    return (Math.random() < 0.5)
+        ? nums.map((n) => n * 2)
+        : nums.map((n) => (n + 16) * 2);
+
+})();
+
+const parCartasR = new Array(2).fill(cartas[Math.floor(Math.random() * cartas.length)]);
+const triCartasR = new Array(3).fill(cartas[Math.floor(Math.random() * cartas.length)]);
+const cuaCartasR = new Array(4).fill(cartas[Math.floor(Math.random() * cartas.length)]);
+
+
+export default defineComponent({
+    name: "Ayuda",
+    components: {carta, grupoCartas},
+    setup() {
+        return {
+            cartas,
+            cartasR,
+            parCartasR,
+            seqCartasR,
+            triCartasR,
+            cuaCartasR
+        }
+    }
+});
+
+</script>
+
+<style scoped lang="sass">
+
+.pad
+    padding-left: 2rem
+
+.tabla-puntos
+    padding-left: 2rem
+
+.yaku
+    margin: 2rem 0
+
+
+//
+</style>
