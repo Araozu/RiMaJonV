@@ -7,10 +7,15 @@ div
                 span(:style="{fontSize: `${pH * 10}px`}") {{ cartasRestantes }}
                 br
                 span(:style="{fontSize: `${pH * 2.5}px`}") Cartas restantes
-            mano(:mano="mano2" :posicion="2" :esTurnoActual="turnoActual === obtClave(map, '2')")
-            mano(:mano="mano3" :posicion="3" :esTurnoActual="turnoActual === obtClave(map, '3')")
-            mano(:mano="mano4" :posicion="4" :esTurnoActual="turnoActual === obtClave(map, '4')")
-            mano(:mano="mano1" :posicion="1" :esTurnoActual="turnoActual === obtClave(map, '1')")
+            mano(:mano="mano2" :posicion="2" :esTurnoActual="turnoActual === obtClaveMap('2')")
+            mano(:mano="mano3" :posicion="3" :esTurnoActual="turnoActual === obtClaveMap('3')")
+            mano(:mano="mano4" :posicion="4" :esTurnoActual="turnoActual === obtClaveMap('4')")
+            mano(
+                :mano="mano1"
+                :posicion="1"
+                :esTurnoActual="turnoActual === obtClaveMap('1')"
+                :fnDescartarCarta="descartarCarta"
+            )
 
 //
 </template>
@@ -187,6 +192,7 @@ export default defineComponent({
             }
         };
 
+        const obtClaveMap = (s: string) => obtClave(map, s);
         return {
             dora,
             doraOculto,
@@ -197,7 +203,8 @@ export default defineComponent({
             mano3,
             mano4,
             turnoActual,
-            obtClave,
+            obtClaveMap,
+            descartarCarta,
             pH,
             ph,
             pw,

@@ -1,5 +1,5 @@
 <template lang="pug">
-div(style="display: inline-block")
+div(@click="fnDescartar" style="display: inline-block")
     div.c-carta(v-if="valor === 0")
         div.c-carta-oculta(v-html="'&nbsp;'")
     div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="'carta-' + tipoCarta")
@@ -104,11 +104,16 @@ export default defineComponent({
             }
         });
 
+        const fnDescartar = () => {
+            props.fnDescartar!!(props.valor);
+        }
+
         return {
             tipo,
             tipoCarta,
             valorC,
             colorDragon,
+            fnDescartar,
             pxesc
         }
     }

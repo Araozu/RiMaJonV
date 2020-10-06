@@ -278,8 +278,12 @@ div
             grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 52, 52, 53]")
 
         div.yaku
-            p 3 triples de J, Q y K
+            p 3 triples o cuádruples de J, Q y K
             grupo-cartas(:cartas="[192, 192, 192, 224, 224, 224, 256, 256, 256, 16, 16]")
+
+        div.yaku
+            p Solo dragones, J, K y Q
+            grupo-cartas(:cartas="[64, 64, 64, 128, 128, 128, 192, 192, 192, 224, 224]")
 
         div.yaku
             p 1 par del mismo número, mismo color y mismo símbolo (no disponible)

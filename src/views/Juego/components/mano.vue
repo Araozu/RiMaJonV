@@ -1,7 +1,23 @@
 <template lang="pug">
 div.cont-cuadrante-2-mano
+    contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
+    div.cont-opciones-mano
+        div.opcion-mano(v-if="hayTri" :style="{backgroundColor: '#3F51B5'}")
+            | Tri
+        div.opcion-mano(v-if="haySeq" :style="{backgroundColor: '#009688'}")
+            | Seq
+        div.opcion-mano(v-if="hayQuad" :style="{backgroundColor: '#9C27B0'}")
+            | Quad
+        div.opcion-mano(v-if="hayWin" :style="{backgroundColor: '#f44336'}")
+            | Win
+        div.opcion-mano(:style="{backgroundColor: '#9E9E9E'}")
+            | Ignorar
     div.cuadrante-mano
         carta(v-for="(c, i) in cartas" :valor="c" :movimiento="posiciones[i]" :fnDescartar="descartarCarta" :key="i")
+        carta(:valor="-1")
+        carta(:valor="mano.sigCarta" :fnDescartar="descartarCarta")
+        carta(:valor="-1")
+        carta(v-for="(c, i) in mano.cartasReveladas" :valor="c" :key="i")
 
 //
 </template>
@@ -10,6 +26,9 @@ div.cont-cuadrante-2-mano
 import { computed, defineComponent, ref, watch } from "vue";
 import { useDimensions } from "@/components/useDimensions";
 import carta from "@/components/carta.vue";
+import contenedorDescartes from "./contenedor-descartes.vue"
+import { Mano } from "@/views/Juego/types/Mano";
+import { Oportunidad } from "@/views/Juego/types/Oportunidad";
 
 const estaOrdenado = (nums: number[]) => {
     for (let i = 0, j = 1; j < nums.length ; i++, j++) {
@@ -22,7 +41,7 @@ const esperar = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)
 
 export default defineComponent({
     name: "mano",
-    components: {carta},
+    components: {carta, contenedorDescartes},
     props: {
         mano: Object,
         posicion: Number,
@@ -33,11 +52,7 @@ export default defineComponent({
     setup(props) {
         const {pH, phx} = useDimensions();
         const anchoCarta = computed(() => pH.value * 5 + 2 * (pH.value * 0.225))
-        const cartas = ref<number[]>(props.mano?.cartas);
-        const entrada = props.mano?.sigCarta;
-        const gruposAbiertos = props.mano?.cartasReveladas;
-        const descartes = props.mano?.descartes;
-        const ultimaCartaDescartada = props.oportunidades?.cartaDescartada ?? 0;
+        const cartas = ref<number[]>((props.mano as Mano).cartas);
         const posicion = props.posicion;
         const esTurnoActual = props.esTurnoActual;
         const oportunidades = props.oportunidades;
@@ -114,11 +129,42 @@ export default defineComponent({
             posiciones.value = new Array(n.length).fill("none");
         });
 
+        const hayTri = computed(() => {
+            for (const o of (props.mano!! as Mano).oportunidades) {
+                if (o.nombreOportunidad === "Tri") return true;
+            }
+            return false;
+        });
+
+        const haySeq = computed(() => {
+            for (const o of props.mano!!.oportunidades) {
+                if ((o as unknown as Oportunidad).nombreOportunidad === "Seq") return true;
+            }
+            return false;
+        });
+
+        const hayQuad = computed(() => {
+            for (const o of props.mano!!.oportunidades) {
+                if ((o as unknown as Oportunidad).nombreOportunidad === "Quad") return true;
+            }
+            return false;
+        });
+
+        const hayWin = computed(() => {
+            for (const o of props.mano!!.oportunidades) {
+                if ((o as unknown as Oportunidad).nombreOportunidad === "Win") return true;
+            }
+            return false;
+        });
 
         return {
             cartas,
             posiciones,
             descartarCarta,
+            hayTri,
+            haySeq,
+            hayQuad,
+            hayWin,
             phx,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }
@@ -128,6 +174,30 @@ export default defineComponent({
 </script>
 
 <style scoped lang="sass" vars="{phx, posicionW}">
+
+.cont-opciones-mano
+    position: absolute
+    width: 65%
+    height: 7%
+    bottom: 11%
+    left: 13%
+    text-align: right
+
+
+.opcion-mano
+    display: inline-block
+    min-width: 17%
+    font-size: calc(var(--phx) * 3)
+    text-align: center
+    cursor: pointer
+    margin-left: var(--phx)
+    padding: var(--phx) 0
+    color: white
+    font-weight: bold
+    border-radius: calc(var(--phx) * 0.5)
+    box-shadow: 0 0 10px 1px rgba(100, 100, 100, 0.5)
+    transition: transform 100ms
+
 
 .cont-cuadrante-2-mano
     position: absolute
