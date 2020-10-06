@@ -1,8 +1,8 @@
 <template lang="pug">
 div.contenedor-dora
-    carta(v-for="(c, i) in dora" :valor="c" :escala="0.75" :key="i")
+    carta(v-for="(c, i) in doraCerrado" :valor="c" :escala="0.75" :key="i")
     br
-    carta(v-for="(c, i) in doraOculto" :valor="c" :escala="0.75" :key="i")
+    carta(v-for="(c, i) in doraAbierto" :valor="c" :escala="0.75" :key="i")
 
 //
 </template>
@@ -29,11 +29,28 @@ export default defineComponent({
             default: 32
         }
     },
-    setup() {
+    setup(props) {
         const {pH} = useDimensions();
         const pHc = computed(() => pH.value + "px");
 
+        const doraCerrado = computed(() => {
+            const narr = [...props.dora];
+            for (let i = narr.length; i < 5; i++) {
+                narr.push(0);
+            }
+            return narr;
+        });
+        const doraAbierto = computed(() => {
+            const narr = [...props.doraOculto];
+            for (let i = narr.length; i < 5; i++) {
+                narr.push(0);
+            }
+            return narr;
+        });
+
         return {
+            doraCerrado,
+            doraAbierto,
             pHc
         }
     }

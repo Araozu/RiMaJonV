@@ -10,8 +10,7 @@ div.cont-cuadrante-2-mano
             | Quad
         div.opcion-mano(v-if="hayWin" :style="{backgroundColor: '#f44336'}")
             | Win
-        div.opcion-mano(:style="{backgroundColor: '#9E9E9E'}")
-            | Ignorar
+        opcion-ignorar(v-if="hayTri || haySeq || hayQuad || hayWin" :idUsuario="idUsuario" :ws="ws")
     div.cuadrante-mano
         carta(v-for="(c, i) in cartas" :valor="c" :movimiento="posiciones[i]" :fnDescartar="descartarCarta" :key="i")
         carta(:valor="-1")
@@ -28,7 +27,7 @@ import { useDimensions } from "@/components/useDimensions";
 import carta from "@/components/carta.vue";
 import contenedorDescartes from "./contenedor-descartes.vue"
 import { Mano } from "@/views/Juego/types/Mano";
-import { Oportunidad } from "@/views/Juego/types/Oportunidad";
+import opcionIgnorar from "./opciones-mano/opcion-ignorar.vue"
 
 const estaOrdenado = (nums: number[]) => {
     for (let i = 0, j = 1; j < nums.length ; i++, j++) {
@@ -41,8 +40,10 @@ const esperar = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)
 
 export default defineComponent({
     name: "mano",
-    components: {carta, contenedorDescartes},
+    components: {carta, contenedorDescartes, opcionIgnorar},
     props: {
+        idUsuario: String,
+        ws: WebSocket,
         mano: Object,
         posicion: Number,
         esTurnoActual: Boolean,
@@ -130,29 +131,30 @@ export default defineComponent({
         });
 
         const hayTri = computed(() => {
+            console.log(props.mano);
             for (const o of (props.mano!! as Mano).oportunidades) {
-                if (o.nombreOportunidad === "Tri") return true;
+                if (o?.nombreOportunidad === "Tri") return true;
             }
             return false;
         });
 
         const haySeq = computed(() => {
             for (const o of props.mano!!.oportunidades) {
-                if ((o as unknown as Oportunidad).nombreOportunidad === "Seq") return true;
+                if (o?.nombreOportunidad === "Seq") return true;
             }
             return false;
         });
 
         const hayQuad = computed(() => {
             for (const o of props.mano!!.oportunidades) {
-                if ((o as unknown as Oportunidad).nombreOportunidad === "Quad") return true;
+                if (o?.nombreOportunidad === "Quad") return true;
             }
             return false;
         });
 
         const hayWin = computed(() => {
             for (const o of props.mano!!.oportunidades) {
-                if ((o as unknown as Oportunidad).nombreOportunidad === "Win") return true;
+                if (o?.nombreOportunidad === "Win") return true;
             }
             return false;
         });

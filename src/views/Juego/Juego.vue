@@ -15,6 +15,8 @@ div
                 :posicion="1"
                 :esTurnoActual="turnoActual === obtClaveMap('1')"
                 :fnDescartarCarta="descartarCarta"
+                :idUsuario="idUsuario"
+                :ws="socket"
             )
 
 //
@@ -36,6 +38,7 @@ const manoInicial = {
     cartasReveladas: [],
     descartes: [],
     sigCarta: -1,
+    oportunidades: []
 };
 
 const obtClave = (obj: any, valor: string): string | undefined => {
@@ -83,15 +86,15 @@ export default defineComponent({
             esPantallaCompleta.value = false;
         };
 
-        let socket: WebSocket;
+        let socket = ref<WebSocket | undefined>(undefined);
         const map: any = {};
         onMounted(() => {
             if (!idJuego || !idUsuario) return;
 
-            socket = new WebSocket(`${wsServidor}/juego`);
+            const socketInner = new WebSocket(`${wsServidor}/juego`);
 
-            socket.addEventListener("open", () => {
-                socket.send(JSON.stringify({
+            socketInner.addEventListener("open", () => {
+                socketInner.send(JSON.stringify({
                     operacion: "conectar",
                     datos: JSON.stringify({
                         idJuego,
@@ -100,10 +103,11 @@ export default defineComponent({
                 }));
             });
 
-            socket.addEventListener("message", (ev) => {
+            socketInner.addEventListener("message", (ev) => {
                 const info = JSON.parse(ev.data);
                 switch (info.operacion) {
                     case "actualizar_datos": {
+                        cartaDescartada.value = false;
                         const d = info.datos;
                         console.log(info.datos);
                         dora.value = info.datos.dora;
@@ -173,15 +177,17 @@ export default defineComponent({
                     }
                 }
             });
+
+            socket.value = socketInner;
         });
         onUnmounted(() => {
-            if (socket) socket.close();
+            if (socket) socket.value!!.close();
         });
 
         const descartarCarta = (valorCarta: number) => {
             if (turnoActual.value === obtClave(map, "1") && !cartaDescartada.value) {
                 cartaDescartada.value = true;
-                socket.send(JSON.stringify({
+                socket.value!!.send(JSON.stringify({
                     operacion: "descarte",
                     datos: JSON.stringify({
                         idJuego,
@@ -198,6 +204,8 @@ export default defineComponent({
             doraOculto,
             turnosDora,
             cartasRestantes,
+            idUsuario,
+            socket,
             mano1,
             mano2,
             mano3,
