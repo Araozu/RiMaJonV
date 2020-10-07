@@ -3,6 +3,9 @@ div.contenedor-dora
     carta(v-for="(c, i) in doraCerrado" :valor="c" :escala="0.75" :key="i")
     br
     carta(v-for="(c, i) in doraAbierto" :valor="c" :escala="0.75" :key="i")
+    br
+    span(v-if="turnosRestantes === 1") Bonus en {{turnosRestantes}} turno
+    span(v-else-if="turnosRestantes > 1") Bonus en {{turnosRestantes}} turnos
 
 //
 </template>
