@@ -4,8 +4,11 @@ div.cont-cuadrante-2-mano
     div.cont-opciones-mano
         div.opcion-mano(v-if="hayTri" :style="{backgroundColor: '#3F51B5'}")
             | Tri
-        div.opcion-mano(v-if="haySeq" :style="{backgroundColor: '#009688'}")
-            | Seq
+        opcion-seq(v-if="haySeq"
+            :idUsuario="idUsuario"
+            :ws="ws"
+            :oportunidad="oportunidadSeq"
+        )
         div.opcion-mano(v-if="hayQuad" :style="{backgroundColor: '#9C27B0'}")
             | Quad
         div.opcion-mano(v-if="hayWin" :style="{backgroundColor: '#f44336'}")
@@ -16,7 +19,8 @@ div.cont-cuadrante-2-mano
         carta(:valor="-1")
         carta(:valor="mano.sigCarta" :fnDescartar="descartarCarta")
         carta(:valor="-1")
-        carta(v-for="(c, i) in mano.cartasReveladas" :valor="c" :key="i")
+        div(v-for="g in mano.cartasReveladas" :style="{display: 'inline-block'}")
+            carta(v-for="(c, i) in g" :valor="c" :key="i")
 
 //
 </template>
@@ -28,6 +32,8 @@ import carta from "@/components/carta.vue";
 import contenedorDescartes from "./contenedor-descartes.vue"
 import { Mano } from "@/views/Juego/types/Mano";
 import opcionIgnorar from "./opciones-mano/opcion-ignorar.vue"
+import opcionSeq from "./opciones-mano/opcion-seq.vue"
+import { Oportunidad } from "@/views/Juego/types/Oportunidad";
 
 const estaOrdenado = (nums: number[]) => {
     for (let i = 0, j = 1; j < nums.length ; i++, j++) {
@@ -40,7 +46,12 @@ const esperar = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)
 
 export default defineComponent({
     name: "mano",
-    components: {carta, contenedorDescartes, opcionIgnorar},
+    components: {
+        carta,
+        contenedorDescartes,
+        opcionSeq,
+        opcionIgnorar
+    },
     props: {
         idUsuario: String,
         ws: WebSocket,
@@ -159,6 +170,10 @@ export default defineComponent({
             return false;
         });
 
+        const oportunidadSeq = computed(() => {
+            return props.mano!!.oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Seq")
+        });
+
         return {
             cartas,
             posiciones,
@@ -167,6 +182,7 @@ export default defineComponent({
             haySeq,
             hayQuad,
             hayWin,
+            oportunidadSeq,
             phx,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }

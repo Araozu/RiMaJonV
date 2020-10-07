@@ -29,7 +29,6 @@ export default defineComponent({
         const idJuego = route.params.id;
 
         const enviarSolicitudIgnorarOportunidad = () => {
-            console.log("Pidiendo que se ignore la oportunidad :c");
             props.ws.send(JSON.stringify({
                 operacion: "ignorar_oportunidad",
                 datos: JSON.stringify({
