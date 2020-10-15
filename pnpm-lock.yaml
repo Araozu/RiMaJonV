@@ -11,6 +11,7 @@ devDependencies:
   '@vue/cli-plugin-vuex': 4.5.6_@vue+cli-service@4.5.6
   '@vue/cli-service': 4.5.6_3c24ad0de21a253f90051e57049d7938
   '@vue/compiler-sfc': 3.0.0_vue@3.0.0
+  phosphor-vue: 1.0.0_vue@3.0.0
   pug: 2.0.4
   pug-plain-loader: 1.0.0_pug@2.0.4
   sass: 1.26.11
@@ -6513,6 +6514,16 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+  /phosphor-vue/1.0.0_vue@3.0.0:
+    dependencies:
+      vue: 3.0.0
+    dev: true
+    engines:
+      node: '>=10'
+    peerDependencies:
+      vue: ^2.6.11
+    resolution:
+      integrity: sha512-SZC8O30xPSAtmBGxQRX6Yj78KRJrVVWJU10cHjb7RWEKAcHpevofw1E/zH84M1CinV4cUBABkcYty44PSrLgRw==
   /picomatch/2.2.2:
     dev: true
     engines:
@@ -9264,6 +9275,7 @@ specifiers:
   '@vue/cli-service': ~4.5.0
   '@vue/compiler-sfc': ^3.0.0-0
   core-js: ^3.6.5
+  phosphor-vue: ^1.0.0
   pug: 2.0.4
   pug-plain-loader: 1.0.0
   sass: ^1.26.5
