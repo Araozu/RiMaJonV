@@ -8,14 +8,16 @@ const vuexLocal = new VuexPersistence({
 export interface RiMaJonState {
     idUsuario: string | undefined,
     nombreUsuario: string | undefined,
-    modoColor: string
+    modoColor: string,
+    modoColorUsuario: string
 }
 
 export default createStore<RiMaJonState>({
     state: {
         idUsuario: undefined,
         nombreUsuario: undefined,
-        modoColor: "auto"
+        modoColor: "auto",
+        modoColorUsuario: "claro"
     },
     mutations: {
         setIdUsuario(state, id) {
@@ -26,6 +28,9 @@ export default createStore<RiMaJonState>({
         },
         setModoColor(state, modo) {
             state.modoColor = modo;
+        },
+        setModoColorUsuario(state, modo) {
+            state.modoColorUsuario = modo;
         }
     },
     actions: {},

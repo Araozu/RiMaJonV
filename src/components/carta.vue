@@ -13,6 +13,7 @@ div(@click="fnDescartar" style="display: inline-block")
 import {defineComponent, computed} from "vue";
 import {useDimensions} from "@/components/useDimensions";
 import { useStore } from "vuex";
+import { getEsOscuro } from "@/components/getEsOscuro";
 
 export default defineComponent({
     name: "carta",
@@ -39,14 +40,7 @@ export default defineComponent({
         const store = useStore();
         const pxesc = computed(() => pH.value + "px");
 
-        const esOscuro = computed(() => {
-            if (store.state.modoColor === "oscuro") {
-                return true;
-            } else if (store.state.modoColor === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                return true;
-            }
-            return false;
-        });
+        const {esOscuro} = getEsOscuro(store);
 
         const tipo = computed<number>( () => (props.valor << 23) >>> 28);
         const tipoCarta = computed<string>(() => {

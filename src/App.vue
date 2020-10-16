@@ -10,9 +10,17 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const modoColor = computed<string>(() => store.state.modoColor);
-        watch(modoColor, (n) => {
-            console.log(`Modo color cambiado: ${n}`);
-        });
+
+        const query = window.matchMedia("(prefers-color-scheme: dark)");
+        const funActualizarMediaQuery = (ev: MediaQueryListEvent | MediaQueryList) => {
+            store.commit(
+                "setModoColorUsuario",
+                ev.matches? "oscuro": "claro"
+            );
+        };
+        query.addEventListener("change", funActualizarMediaQuery);
+        funActualizarMediaQuery(query);
+
     }
 });
 
