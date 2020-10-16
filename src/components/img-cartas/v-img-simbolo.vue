@@ -1,6 +1,5 @@
 <template lang="pug">
-div
-    img(:src="rutaSvg")
+img(:src="rutaSvg")
 
 //
 </template>
@@ -11,13 +10,19 @@ import { useStore } from "vuex";
 import { getEsOscuro } from "@/components/getEsOscuro";
 
 export default defineComponent({
-    name: "v-img-corazon",
-    setup() {
+    name: "v-img-simbolo",
+    props: {
+        tipo: {
+            type: String,
+            required: true
+        }
+    },
+    setup(props) {
         const store = useStore();
 
         const {esOscuro} = getEsOscuro(store);
 
-        const rutaSvg = computed(() => `/img/simbolos-cartas/T${esOscuro.value? "Oscuro": "Claro"}_corazon.svg`);
+        const rutaSvg = computed(() => `/img/simbolos-cartas/T${esOscuro.value? "Oscuro": "Claro"}_${props.tipo}.svg`);
 
         return {
             rutaSvg
@@ -29,7 +34,12 @@ export default defineComponent({
 
 <style scoped lang="sass">
 
-
+img
+    width: 100%
+    height: auto
+    position: absolute
+    bottom: 0
+    left: 0
 
 //
 </style>

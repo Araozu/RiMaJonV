@@ -7,7 +7,6 @@ export const getEsOscuro = (store: Store<RiMaJonState>) => {
         if (store.state.modoColor === "oscuro") {
             return true;
         } else if (store.state.modoColor === "auto") {
-            console.log(store.state.modoColorUsuario);
             return store.state.modoColorUsuario === "oscuro";
         }
         return false;

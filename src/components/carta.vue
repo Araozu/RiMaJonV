@@ -2,6 +2,10 @@
 div(@click="fnDescartar" style="display: inline-block")
     div.c-carta(v-if="valor === 0")
         div.c-carta-oculta(v-html="'&nbsp;'")
+    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="'carta-' + tipoCarta")
+        span.c-carta-numero {{ valorC }}
+        div.c-carta-img
+            v-img-simbolo(:tipo="nombreSimbolo")
     div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="'carta-' + tipoCarta")
         img.img-dragon(:src="'/img/Dragon_' + colorDragon + '.webp'" :alt="'Dragon ' + colorDragon")
     div.c-carta(v-else :class="'carta-' + tipoCarta" v-html="valorC")
@@ -14,9 +18,11 @@ import {defineComponent, computed} from "vue";
 import {useDimensions} from "@/components/useDimensions";
 import { useStore } from "vuex";
 import { getEsOscuro } from "@/components/getEsOscuro";
+import vImgSimbolo from "./img-cartas/v-img-simbolo.vue";
 
 export default defineComponent({
     name: "carta",
+    components: {vImgSimbolo},
     props: {
         valor: {
             type: Number,
@@ -84,6 +90,16 @@ export default defineComponent({
             }
         });
 
+        const nombreSimbolo = computed(() => {
+            if (tipo.value === 0) {
+                return (((props.valor << 31) >>> 31) === 1)? "trebol": "pica";
+            } else if (tipo.value === 1) {
+                return (((props.valor << 31) >>> 31) === 1)? "corazon": "diamante";
+            } else {
+                return "";
+            }
+        });
+
         const colorDragon = computed<string>(() => {
             if (esOscuro.value) return "blanco";
             switch (tipo.value) {
@@ -106,6 +122,7 @@ export default defineComponent({
             tipo,
             tipoCarta,
             valorC,
+            nombreSimbolo,
             colorDragon,
             fnDescartar,
             pxesc
@@ -142,6 +159,21 @@ export default defineComponent({
     border: solid calc(var(--pxesc) * 0.4 * var(--escala)) var(--color-texto)
     border-radius: 0.1rem
     opacity: 0.75
+
+.c-carta-numero
+    display: inline-block
+    position: absolute
+    top: 5%
+    left: 10%
+    font-size: 100%
+    line-height: 1
+
+.c-carta-img
+    display: inline-block
+    position: absolute
+    bottom: 7%
+    right: 10%
+    width: 60%
 
 .img-dragon
     width: 90%
