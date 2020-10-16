@@ -2,8 +2,11 @@
 div.cont-cuadrante-2-mano
     contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
     div.cont-opciones-mano
-        div.opcion-mano(v-if="hayTri" :style="{backgroundColor: '#3F51B5'}")
-            | Tri
+        opcion-tri(v-if="hayTri"
+            :idUsuario="idUsuario"
+            :ws="ws"
+            :oportunidad="oportunidadTri"
+        )
         opcion-seq(v-if="haySeq"
             :idUsuario="idUsuario"
             :ws="ws"
@@ -29,10 +32,11 @@ div.cont-cuadrante-2-mano
 import { computed, defineComponent, ref, watch } from "vue";
 import { useDimensions } from "@/components/useDimensions";
 import carta from "@/components/carta.vue";
-import contenedorDescartes from "./contenedor-descartes.vue"
+import contenedorDescartes from "./contenedor-descartes.vue";
 import { Mano } from "@/views/Juego/types/Mano";
-import opcionIgnorar from "./opciones-mano/opcion-ignorar.vue"
-import opcionSeq from "./opciones-mano/opcion-seq.vue"
+import opcionIgnorar from "./opciones-mano/opcion-ignorar.vue";
+import opcionSeq from "./opciones-mano/opcion-seq.vue";
+import opcionTri from "./opciones-mano/opcion-tri.vue";
 import { Oportunidad } from "@/views/Juego/types/Oportunidad";
 
 const estaOrdenado = (nums: number[]) => {
@@ -50,7 +54,8 @@ export default defineComponent({
         carta,
         contenedorDescartes,
         opcionSeq,
-        opcionIgnorar
+        opcionIgnorar,
+        opcionTri
     },
     props: {
         idUsuario: String,
@@ -174,6 +179,10 @@ export default defineComponent({
             return props.mano!!.oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Seq")
         });
 
+        const oportunidadTri = computed(() => {
+            return props.mano!!.oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Tri")
+        });
+
         return {
             cartas,
             posiciones,
@@ -183,6 +192,7 @@ export default defineComponent({
             hayQuad,
             hayWin,
             oportunidadSeq,
+            oportunidadTri,
             phx,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }

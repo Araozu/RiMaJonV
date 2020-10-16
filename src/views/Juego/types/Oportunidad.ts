@@ -6,10 +6,11 @@ export declare interface Oportunidad {
 export declare class OportunidadSeq implements Oportunidad {
     cartaDescartada: number;
     nombreOportunidad: string;
-    combinaciones: {first: number, second: number}[]
+    combinaciones: {first: number, second: number}[];
 }
 
 export declare class OportunidadTri implements Oportunidad {
     cartaDescartada: number;
     nombreOportunidad: string;
+    cartas: {first: number, second: number};
 }

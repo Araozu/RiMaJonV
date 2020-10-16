@@ -1,8 +1,8 @@
 <template lang="pug">
-div.opcion-mano(v-for="opcion in opciones" @click="enviarSolicitudSeq(opcion)" :style="{backgroundColor: '#009688'}")
+div.opcion-mano(@click="enviarSolicitudSeq()" :style="{backgroundColor: '#3F51B5'}")
     div.contenedor-cartas-opcion-mano
-        carta(v-for="(c, i) in obtCartasOrdenadas(opcion)" :valor="c" :escala="0.5" :key="i")
-    span Seq
+        carta(v-for="(c, i) in obtCartas()" :valor="c" :escala="0.5" :key="i")
+    span Tri
 
 //
 </template>
@@ -11,11 +11,11 @@ div.opcion-mano(v-for="opcion in opciones" @click="enviarSolicitudSeq(opcion)" :
 import { computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
 import { useDimensions } from "@/components/useDimensions";
-import { OportunidadSeq } from "@/views/Juego/types/Oportunidad";
+import { OportunidadTri } from "../../types/Oportunidad";
 import carta from "@/components/carta.vue";
 
 export default defineComponent({
-    name: "opcion-seq",
+    name: "opcion-tri",
     components: {carta},
     props: {
         idUsuario: {
@@ -36,16 +36,13 @@ export default defineComponent({
 
         const idJuego = route.params.id;
 
-        const op = computed(() => props.oportunidad as OportunidadSeq | undefined)
+        const op = computed(() => props.oportunidad as OportunidadTri | undefined)
 
-        const opciones = computed(() => {
-            return op.value?.combinaciones
-        });
-
-        const enviarSolicitudSeq = (opcion: {first: number, second: number}) => {
+        const enviarSolicitudSeq = () => {
+            const opcion = op.value!!.cartas;
             if (op.value !== undefined) {
                 props.ws.send(JSON.stringify({
-                    operacion: "llamar_seq",
+                    operacion: "llamar_tri",
                     datos: JSON.stringify({
                         idJuego,
                         idUsuario: props.idUsuario,
@@ -56,14 +53,22 @@ export default defineComponent({
             }
         };
 
-        const obtCartasOrdenadas = (opcion: {first: number, second: number}) => {
-            return [op.value!!.cartaDescartada, opcion.first, opcion.second].sort((x, y) => (x < y)? -1: 1)
+        const obtCartas = () => {
+            if (op.value !== undefined) {
+                const v: OportunidadTri = op.value;
+                return [
+                    v.cartas.first,
+                    v.cartas.second,
+                    v.cartaDescartada
+                ];
+            } else {
+                return [];
+            }
         };
 
         return {
-            opciones,
             enviarSolicitudSeq,
-            obtCartasOrdenadas,
+            obtCartas,
             tamano: computed(() => (pH.value * -0.75) + "px"),
             phx
         }
