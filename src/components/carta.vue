@@ -14,7 +14,7 @@ div.cont-carta(@click="fnDescartar" style="display: inline-block")
 </template>
 
 <script lang="ts">
-import {defineComponent, computed} from "vue";
+import {defineComponent, computed, ref, watchEffect} from "vue";
 import {useDimensions} from "@/components/useDimensions";
 import { useStore } from "vuex";
 import { getEsOscuro } from "@/components/getEsOscuro";
@@ -116,7 +116,16 @@ export default defineComponent({
         });
 
         const valorR = computed(() => props.valor);
-        const claseDora = getClaseDora(valorR, store);
+        const claseDora = ref("");
+        const claseDoraWatcher = getClaseDora(valorR, store);
+        watchEffect(() => {
+            if (claseDoraWatcher.value !== "") {
+                const tiempoHastaSig5s = 5000 - (new Date()).getTime() % 5000;
+                setTimeout(() => {
+                    claseDora.value = claseDoraWatcher.value;
+                }, tiempoHastaSig5s);
+            }
+        });
 
         const fnDescartar = () => {
             props.fnDescartar!!(props.valor);
