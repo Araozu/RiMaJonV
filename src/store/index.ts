@@ -9,7 +9,8 @@ export interface RiMaJonState {
     idUsuario: string | undefined,
     nombreUsuario: string | undefined,
     modoColor: string,
-    modoColorUsuario: string
+    modoColorUsuario: string,
+    dora: [Array<number>, Array<number>]
 }
 
 export default createStore<RiMaJonState>({
@@ -17,7 +18,8 @@ export default createStore<RiMaJonState>({
         idUsuario: undefined,
         nombreUsuario: undefined,
         modoColor: "auto",
-        modoColorUsuario: "claro"
+        modoColorUsuario: "claro",
+        dora: [[], []]
     },
     mutations: {
         setIdUsuario(state, id) {
@@ -31,6 +33,12 @@ export default createStore<RiMaJonState>({
         },
         setModoColorUsuario(state, modo) {
             state.modoColorUsuario = modo;
+        },
+        agregarDora(state, dora) {
+            state.dora.push(dora);
+        },
+        setDora(state, dora) {
+            state.dora = dora;
         }
     },
     actions: {},

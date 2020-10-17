@@ -111,8 +111,9 @@ export default defineComponent({
                         const d = info.datos;
                         console.log(info.datos);
                         dora.value = info.datos.dora;
-                        console.log(dora.value);
                         doraOculto.value = info.datos.doraOculto;
+                        store.commit("setDora", [info.datos.dora, info.datos.doraOculto]);
+
                         turnosDora.value = info.datos.turnosHastaDora;
 
                         // Mapear IDS a posiciones
@@ -147,6 +148,7 @@ export default defineComponent({
                         console.log(info.datos);
                         dora.value = info.datos.dora;
                         doraOculto.value = info.datos.doraOculto;
+                        store.commit("setDora", [...info.datos.dora, ...info.datos.doraOculto]);
                         cartaDescartada.value = false;
                         turnosDora.value = info.datos.turnosHastaDora;
 
@@ -231,6 +233,7 @@ export default defineComponent({
     width: calc(var(--ph) * 100)
     height: calc(var(--ph) * 100)
     perspective: calc(var(--pw) * 10)
+    transform-style: preserve-3d
 
 
 .cont-2-juego

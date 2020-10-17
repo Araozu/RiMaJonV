@@ -1,14 +1,14 @@
 <template lang="pug">
-div(@click="fnDescartar" style="display: inline-block")
-    div.c-carta(v-if="valor === 0")
+div.cont-carta(@click="fnDescartar" style="display: inline-block")
+    div.c-carta(v-if="valor === 0" :class="claseDora")
         div.c-carta-oculta(v-html="'&nbsp;'")
-    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="'carta-' + tipoCarta")
+    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseDora]")
         span.c-carta-numero {{ valorC }}
         div.c-carta-img
             v-img-simbolo(:tipo="nombreSimbolo")
-    div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="'carta-' + tipoCarta")
+    div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="['carta-' + tipoCarta, claseDora]")
         img.img-dragon(:src="'/img/Dragon_' + colorDragon + '.webp'" :alt="'Dragon ' + colorDragon")
-    div.c-carta(v-else :class="'carta-' + tipoCarta" v-html="valorC")
+    div.c-carta(v-else :class="['carta-' + tipoCarta, claseDora]" v-html="valorC")
 
 //
 </template>
@@ -19,6 +19,7 @@ import {useDimensions} from "@/components/useDimensions";
 import { useStore } from "vuex";
 import { getEsOscuro } from "@/components/getEsOscuro";
 import vImgSimbolo from "./img-cartas/v-img-simbolo.vue";
+import { getClaseDora } from "./getValorDora";
 
 export default defineComponent({
     name: "carta",
@@ -114,6 +115,9 @@ export default defineComponent({
             }
         });
 
+        const valorR = computed(() => props.valor);
+        const claseDora = getClaseDora(valorR, store);
+
         const fnDescartar = () => {
             props.fnDescartar!!(props.valor);
         }
@@ -124,6 +128,7 @@ export default defineComponent({
             valorC,
             nombreSimbolo,
             colorDragon,
+            claseDora,
             fnDescartar,
             pxesc
         }
@@ -141,8 +146,7 @@ export default defineComponent({
         weight: normal
         family: "Secular One", "Pt Serif", serif
     display: table-cell
-    border: solid calc(var(--pxesc) * 0.225 * var(--escala)) var(--color-borde)
-    border-radius: 0.1rem
+    border: solid calc(var(--pxesc) * 0.2 * var(--escala)) var(--color-borde)
     width: calc(var(--pxesc) * 5 * var(--escala))
     height: calc(var(--pxesc) * 8.5 * var(--escala))
     min-width: calc(var(--pxesc) * 5 * var(--escala))
@@ -151,6 +155,33 @@ export default defineComponent({
     cursor: pointer
     transition: transform 50ms, opacity 50ms
     user-select: none
+
+
+.c-carta-bonus
+    overflow: hidden
+
+    &::after
+        content: ""
+        display: inline-block
+        position: absolute
+        left: 0
+        top: -95%
+        width: 100%
+        height: 100%
+        color: #ffb500
+        background-image: linear-gradient(135deg, rgba(220, 220, 220, 0.0) 0%, rgba(220, 220, 220, 0.0) 35%, rgba(220, 220, 220, 0.3) 45%, rgba(220, 220, 220, 0.6) 53%, rgba(220, 220, 220, 0.3) 57%, rgba(220, 220, 220, 0.0) 65%, rgba(220, 220, 220, 0.0) 100%)
+        transition: transform 500ms
+        animation-duration: 5s
+        animation-name: brillocarta
+        animation-iteration-count: infinite
+
+@keyframes brillocarta
+    35%
+        transform: translateY(200%)
+
+    to
+        transform: translateY(200%)
+
 
 .c-carta-oculta
     display: inline-block
