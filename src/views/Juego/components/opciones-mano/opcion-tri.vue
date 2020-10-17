@@ -99,6 +99,7 @@ export default defineComponent({
     border-radius: calc(var(--phx) * 0.5)
     box-shadow: 0 0 10px 1px rgba(100, 100, 100, 0.5)
     transition: transform 100ms
+    user-select: none
     &:hover
         transform: translateY(var(--tamano))
 
