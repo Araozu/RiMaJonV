@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-    contenedor-dora(:dora="dora" :doraOculto="doraOculto" :turnosRestantes="turnosDora")
+    contenedor-dora(:turnosRestantes="turnosDora")
     div.con-int-juego
         div.cont-2-juego
             div.cont-cuadrante-cartas-juego

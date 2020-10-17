@@ -14,37 +14,31 @@ div.contenedor-dora
 import {defineComponent, computed} from "vue";
 import { useDimensions } from "@/components/useDimensions";
 import carta from "@/components/carta.vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
     name: "contenedor-dora",
     components: {carta},
     props: {
-        dora: {
-            type: Array,
-            default: [0, 0, 0, 0, 0]
-        },
-        doraOculto: {
-            type: Array,
-            default: [0, 0, 0, 0, 0]
-        },
         turnosRestantes: {
             type: Number,
             default: 32
         }
     },
-    setup(props) {
+    setup() {
+        const store = useStore();
         const {pH} = useDimensions();
         const pHc = computed(() => pH.value + "px");
 
         const doraCerrado = computed(() => {
-            const narr = [...props.dora];
+            const narr = [...store.state.dora[0]];
             for (let i = narr.length; i < 5; i++) {
                 narr.push(0);
             }
             return narr;
         });
         const doraAbierto = computed(() => {
-            const narr = [...props.doraOculto];
+            const narr = [...store.state.dora[1]];
             for (let i = narr.length; i < 5; i++) {
                 narr.push(0);
             }
