@@ -2,21 +2,26 @@
 div.cont-cuadrante-2-mano
     contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
     div.cont-opciones-mano
-        opcion-tri(v-if="hayTri"
+        opcion-tri(v-if="oportunidadTri"
             :idUsuario="idUsuario"
             :ws="ws"
             :oportunidad="oportunidadTri"
         )
-        opcion-seq(v-if="haySeq"
+        opcion-seq(v-if="oportunidadSeq"
             :idUsuario="idUsuario"
             :ws="ws"
             :oportunidad="oportunidadSeq"
         )
-        div.opcion-mano(v-if="hayQuad" :style="{backgroundColor: '#9C27B0'}")
+        div.opcion-mano(v-if="oportunidadQuad" :style="{backgroundColor: '#9C27B0'}")
             | Quad
-        div.opcion-mano(v-if="hayWin" :style="{backgroundColor: '#f44336'}")
-            | Win
-        opcion-ignorar(v-if="hayTri || haySeq || hayQuad || hayWin" :idUsuario="idUsuario" :ws="ws")
+        opcion-win(v-if="oportunidadWin"
+            :idUsuario="idUsuario"
+            :ws="ws"
+            :oportunidad="oportunidadWin"
+        )
+        opcion-ignorar(v-if="oportunidadTri || oportunidadSeq || oportunidadQuad || oportunidadWin"
+            :idUsuario="idUsuario" :ws="ws"
+        )
     div.cuadrante-mano
         carta(v-for="(c, i) in cartas" :valor="c" :movimiento="posiciones[i]" :fnDescartar="descartarCarta" :key="i")
         carta(:valor="-1")
@@ -37,7 +42,8 @@ import { Mano } from "@/views/Juego/types/Mano";
 import opcionIgnorar from "./opciones-mano/opcion-ignorar.vue";
 import opcionSeq from "./opciones-mano/opcion-seq.vue";
 import opcionTri from "./opciones-mano/opcion-tri.vue";
-import { Oportunidad } from "@/views/Juego/types/Oportunidad";
+import opcionWin from "./opciones-mano/opcion-win.vue"
+import { Oportunidad, OportunidadSeq, OportunidadTri, OportunidadWin } from "@/views/Juego/types/Oportunidad";
 
 const estaOrdenado = (nums: number[]) => {
     for (let i = 0, j = 1; j < nums.length ; i++, j++) {
@@ -55,12 +61,16 @@ export default defineComponent({
         contenedorDescartes,
         opcionSeq,
         opcionIgnorar,
-        opcionTri
+        opcionTri,
+        opcionWin
     },
     props: {
         idUsuario: String,
         ws: WebSocket,
-        mano: Object,
+        mano: {
+            type: Object,
+            required: true
+        },
         posicion: Number,
         esTurnoActual: Boolean,
         oportunidades: Object,
@@ -146,53 +156,30 @@ export default defineComponent({
             posiciones.value = new Array(n.length).fill("none");
         });
 
-        const hayTri = computed(() => {
-            console.log(props.mano);
-            for (const o of (props.mano!! as Mano).oportunidades) {
-                if (o?.nombreOportunidad === "Tri") return true;
-            }
-            return false;
+        const oportunidadSeq = computed<Oportunidad | undefined>(() => {
+            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Seq")
         });
 
-        const haySeq = computed(() => {
-            for (const o of props.mano!!.oportunidades) {
-                if (o?.nombreOportunidad === "Seq") return true;
-            }
-            return false;
+        const oportunidadTri = computed<Oportunidad | undefined>(() => {
+            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Tri")
         });
 
-        const hayQuad = computed(() => {
-            for (const o of props.mano!!.oportunidades) {
-                if (o?.nombreOportunidad === "Quad") return true;
-            }
-            return false;
+        const oportunidadQuad = computed<Oportunidad | undefined>(() => {
+            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Quad")
         });
 
-        const hayWin = computed(() => {
-            for (const o of props.mano!!.oportunidades) {
-                if (o?.nombreOportunidad === "Win") return true;
-            }
-            return false;
-        });
-
-        const oportunidadSeq = computed(() => {
-            return props.mano!!.oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Seq")
-        });
-
-        const oportunidadTri = computed(() => {
-            return props.mano!!.oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Tri")
+        const oportunidadWin = computed<Oportunidad | undefined>(() => {
+            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Win")
         });
 
         return {
             cartas,
             posiciones,
             descartarCarta,
-            hayTri,
-            haySeq,
-            hayQuad,
-            hayWin,
             oportunidadSeq,
             oportunidadTri,
+            oportunidadQuad,
+            oportunidadWin,
             phx,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }

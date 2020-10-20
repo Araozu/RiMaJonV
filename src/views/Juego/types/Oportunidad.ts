@@ -14,3 +14,8 @@ export declare class OportunidadTri implements Oportunidad {
     nombreOportunidad: string;
     cartas: {first: number, second: number};
 }
+
+export declare class OportunidadWin implements Oportunidad {
+    cartaDescartada: number;
+    nombreOportunidad: string;
+}

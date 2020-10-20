@@ -178,7 +178,7 @@ export default defineComponent({
         width: 100%
         height: 100%
         color: #ffb500
-        background-image: linear-gradient(135deg, rgba(180, 180, 180, 0.0) 0%, rgba(180, 180, 180, 0.0) 35%, rgba(180, 180, 180, 0.3) 45%, rgba(180, 180, 180, 0.6) 53%, rgba(180, 180, 180, 0.3) 57%, rgba(180, 180, 180, 0.0) 65%, rgba(180, 180, 180, 0.0) 100%)
+        background-image: linear-gradient(135deg, rgba(210, 210, 210, 0.0) 0%, rgba(210, 210, 210, 0.0) 35%, rgba(210, 210, 210, 0.3) 45%, rgba(210, 210, 210, 0.9) 53%, rgba(210, 210, 210, 0.3) 57%, rgba(210, 210, 210, 0.0) 65%, rgba(210, 210, 210, 0.0) 100%)
         transition: transform 500ms
         animation-duration: 5s
         animation-name: brillocarta
