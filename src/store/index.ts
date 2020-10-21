@@ -2,7 +2,12 @@ import { createStore } from 'vuex';
 import VuexPersistence from "vuex-persist";
 
 const vuexLocal = new VuexPersistence({
-    storage: window.localStorage
+    storage: window.localStorage,
+    reducer(state: RiMaJonState) {
+        const datos = Object.assign({}, state);
+        delete datos.dora;
+        return datos;
+    }
 });
 
 export interface RiMaJonState {
