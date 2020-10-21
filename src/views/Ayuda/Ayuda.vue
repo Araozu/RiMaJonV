@@ -207,87 +207,95 @@ div
         div.yaku
             p Cualquier bonus en una mano ganadora. 100% acumulable.
 
-        h3 2 puntos
-
-        div.pad
-
-            div.yaku
-                p
-                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | Con fé (riichi, TODO)
-                grupo-cartas(:cartas="[2, 3, 4, 5, 7, 6, 44, 45, 44, 128, 128]")
-
-            div.yaku
-                p
-                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | 2 secuencias iguales del mismo color en mano cerrada.
-                grupo-cartas(:cartas="[2, 2, 4, 5, 6, 7, 44, 45, 44, 128, 128]")
-
-            div.yaku
-                p 1 triple de J, K o Q (acumulable).
-                grupo-cartas(:cartas="[5, 5, 4, 40, 43, 44, 128, 128, 256, 256, 256]")
-
-            div.yaku
-                p
-                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | 3 secuencias en mano cerrada.
-                grupo-cartas(:cartas="[4, 6, 9, 13, 15, 16, 36, 38, 40, 96, 96]")
-
-            div.yaku
-                p 3 triples
-                grupo-cartas(:cartas="[6, 6, 5, 48, 48, 49, 160, 160, 160, 192, 192]")
-
-            div.yaku
-                p Solo números del 2 al 9
-                grupo-cartas(:cartas="[4, 4, 4, 5, 7, 8, 12, 13, 13, 40, 41]")
-
-            div.yaku
-                p 1 triple del dragon del color de la partida o del jugador (acumulable).
-                grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
-
-            div.yaku
-                p
-                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | 1 par del mismo número, color y símbolo en mano cerrada
-                grupo-cartas(:cartas="[6, 9, 11, 12, 15, 16, 41, 41, 128, 128, 128]")
-
         h3 3 puntos
 
         div.pad
 
             div.yaku
+                h4
+                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
+                    | Doble secuencia pura
+                p 2 secuencias iguales del mismo color en mano cerrada.
+                grupo-cartas(:cartas="[2, 2, 4, 5, 6, 7, 44, 45, 44, 128, 128]")
+
+            div.yaku
+                h4 Realeza
+                p 1 triple de J, K o Q.
+                grupo-cartas(:cartas="[5, 5, 4, 40, 43, 44, 128, 128, 256, 256, 256]")
+
+            div.yaku
+                h4
+                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
+                    | Triple secuencia cerrada
+                p 3 secuencias en mano cerrada.
+                grupo-cartas(:cartas="[4, 6, 9, 13, 15, 16, 36, 38, 40, 96, 96]")
+
+            div.yaku
+                h4 Triple triples
+                p 3 triples
+                grupo-cartas(:cartas="[6, 6, 5, 48, 48, 49, 160, 160, 160, 192, 192]")
+
+            div.yaku
+                h4 Interior
+                p Solo números del 2 al 9
+                grupo-cartas(:cartas="[4, 4, 4, 5, 7, 8, 12, 13, 13, 40, 41]")
+
+            div.yaku
+                h4 Dragones
+                p 1 triple del dragon del color de la partida o del jugador (acumulable).
+                grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
+
+            div.yaku
+                h4 Par único
                 p
+                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
+                    | 1 par del mismo número, color y símbolo en mano cerrada
+                grupo-cartas(:cartas="[6, 9, 11, 12, 15, 16, 41, 41, 128, 128, 128]")
+
+        h3 4 puntos
+
+        div.pad
+
+            div.yaku
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | Cada par o grupo contiene al menos un 1, 10, J, Q, K o dragón en mano cerrada.
-                    | En mano abierta vale 1 punto menos.
+                    | Semi exterior
+                p
+                    | Cada par o grupo contiene al menos un 1, 10, J, Q, K o dragón.
+                    | -1 punto en mano abierta.
                 grupo-cartas(:cartas="[2, 4, 7, 20, 20, 21, 48, 50, 52, 192, 192]")
 
             div.yaku
-                p
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | Solo cartas de color rojo en mano cerrada. En mano abierta vale 1 punto menos.
+                    | Rojo
+                p Solo cartas de color rojo en mano cerrada. En mano abierta vale 1 punto menos.
                 grupo-cartas(:cartas="[42, 43, 47, 48, 51, 53, 53, 52, 96, 96, 96,]")
 
             div.yaku
-                p
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | Solo cartas de color negro en mano cerrada. En mano abierta vale 1 punto menos.
+                    | Negro
+                p Solo cartas de color negro en mano cerrada. En mano abierta vale 1 punto menos.
                 grupo-cartas(:cartas="[4, 7, 8, 8, 9, 12, 15, 16, 64, 64, 64]")
 
             div.yaku
+                h4 Triple cuádruples
                 p 3 cuádruples
                 grupo-cartas(:cartas="[44, 45, -1, 128, 128, 128, 128, -1, 20, 20, 21, 21, -1, 40, 40, 41, 41]")
 
             div.yaku
-                p
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | 1,2,3,4,5,6,7,8,9 del mismo color. -1 punto en mano abierta.
+                    | Escalera
+                p 1,2,3,4,5,6,7,8,9 del mismo color. -1 punto en mano abierta.
                 grupo-cartas(:cartas="[2, 4, 7, 9, 10, 12, 15, 16, 19, 128, 128]")
 
             div.yaku
-                p
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | 2,3,4,5,6,7,8,9,10 del mismo color. -1 punto en mano abierta.
+                    | Escalera
+                p 2,3,4,5,6,7,8,9,10 del mismo color. -1 punto en mano abierta.
                 grupo-cartas(:cartas="[5, 7, 9, 10, 12, 14, 17, 18, 20, 41, 41]")
 
         h3 5 puntos
@@ -295,25 +303,29 @@ div
         div.pad
 
             div.yaku
-                p
+                h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
-                    | Solo 1 y 10. -1 punto en mano abierta.
+                    | Exterior
+                p Solo 1 y 10. -1 punto en mano abierta.
                 grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 52, 52, 53]")
 
             div.yaku
+                h4 Escalera full
                 p 1,1,2,3,4,5,6,7,8,9,10 del mismo color
                 grupo-cartas(:cartas="[2, 3, 4, 7, 9, 10, 13, 14, 17, 19, 21]")
                 p No se acumula con 2,3,4,5,6,7,8,9,10.
 
             div.yaku
+                h4 Escalera full
                 p 1,2,3,4,5,6,7,8,9,10,10 del mismo color
                 grupo-cartas(:cartas="[35, 37, 38, 40, 42, 45, 47, 48, 51, 52, 52]")
                 p No se acumula con 1,2,3,4,5,6,7,8,9.
 
             div.yaku
-                p
+                h4
                     i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | 3 triples en mano cerrada
+                    | Triple triples cerrados
+                p 3 triples en mano cerrada
                 grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
 
         h3 10 puntos
@@ -321,24 +333,32 @@ div
         div.pad
 
             div.yaku
+                h4 Realeza full
                 p 3 triples de J, Q y K
                 grupo-cartas(:cartas="[16, 16, 192, 192, 192, 224, 224, 224, 256, 256, 256]")
+                p No se acumula con ninguna otra combinación.
 
             div.yaku
+                h4 Realeza y Dragones
                 p Solo dragones, J, K y Q
                 grupo-cartas(:cartas="[64, 64, 64, 160, 160, 160, 192, 192, 192, 224, 224]")
+                p No se acumula con ninguna otra combinación.
 
         h3 15 puntos
 
         div.pad
 
             div.yaku
+                h4 Dragones full
                 p Solo dragones
                 grupo-cartas(:cartas="[64, 64, 64, 96, 96, 96, 128, 128, 128, 160, 160]")
+                p No se acumula con ninguna otra combinación.
 
             div.yaku
+                h4 Verde
                 p Solo cartas de color verde
                 grupo-cartas(:cartas="[128, 128, 128, 192, 192, 192, 224, 224, 224, 256, 256]")
+                p No se acumula con ninguna otra combinación.
 
 
 //
@@ -446,8 +466,12 @@ export default defineComponent({
 
 .yaku
     margin: 2rem 0
-    p
+    h4
         font-size: 1.15rem
+        margin: 0
+    p
+        margin: 0.5rem 0
+
 
 .img-lock
     padding-right: 0.5rem
