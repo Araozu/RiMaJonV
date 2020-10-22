@@ -17,7 +17,10 @@ div
 
     br
     p
-        router-link(to="/ayuda") Ayuda
+        router-link(to="/ayuda/") Ayuda
+    br
+    p
+        router-link(to="/tutorial/") Tutorial
 
 //
 </template>
@@ -100,6 +103,15 @@ export default defineComponent({
 
 <style scoped lang="sass">
 
+a
+    color: var(--color-fondo)
+    background-color: var(--color-texto)
+    border-radius: 0.25rem
+    padding: 0.5rem 1rem
+    text-decoration: none
+
+    &:hover
+        text-decoration: underline
 
 //
 </style>

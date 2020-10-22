@@ -10,19 +10,30 @@ const routes: Array<RouteRecordRaw> = [
         component: Inicio
     },
     {
-        path: "/sala/:id",
+        path: "/sala/:id/",
         name: "Sala",
         component: Sala
     },
     {
-        path: "/juego/:id",
+        path: "/juego/:id/",
         name: "Juego",
         component: Juego
     },
     {
-        path: "/ayuda",
+        path: "/ayuda/",
         name: "Ayuda",
         component: () => import(/* webpackChunkName: "ayuda" */ "../views/Ayuda/Ayuda.vue")
+    },
+    {
+        path: "/tutorial/",
+        name: "Tutorial",
+        component: () => import(/* webpackChunkName: "tutorial" */ "../views/Tutorial/Tutorial.vue"),
+        children: [
+            {
+                path: "",
+                component: () => import(/* webpackChunkName: "tutorial_index" */ "../views/Tutorial/views/Index.vue")
+            }
+        ]
     }
 ];
 
