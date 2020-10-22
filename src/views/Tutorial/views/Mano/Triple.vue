@@ -42,8 +42,8 @@ export default defineComponent({
         };
 
         const rutaSig = {
-            nombre: "Armar una Mano",
-            ruta: "/tutorial/mano/armar-una-mano"
+            nombre: "Mano lista",
+            ruta: "/tutorial/mano-lista"
         };
 
         return {

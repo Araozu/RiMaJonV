@@ -6,20 +6,16 @@ div.barra-lateral
     br
     router-link(to="/tutorial/mano/") Mano
     div.inner
-        router-link(to="/") Par
+        router-link(to="/tutorial/mano/par") Par
         br
-        router-link(to="/") Secuencia
+        router-link(to="/tutorial/mano/secuencia") Secuencia
         br
-        router-link(to="/") Triple
-        br
-        router-link(to="/") Armar una mano
+        router-link(to="/tutorial/mano/triple") Triple
 
-    router-link(to="/") Flujo del juego
+    router-link(to="/tutorial/mano-lista") Mano lista
     br
     router-link(to="/") Cómo ganar
     div.inner
-        router-link(to="/") Mano lista
-        br
         router-link(to="/") Ganar al recibir una carta
         br
         router-link(to="/") Ganar robando una carta
