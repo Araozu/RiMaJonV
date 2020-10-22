@@ -48,6 +48,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "mano/secuencia/",
                 component: () => import(/* webpackChunkName: "tutorial_mano_secuencia" */ "../views/Tutorial/views/Mano/Secuencia.vue")
+            },
+            {
+                path: "mano/triple/",
+                component: () => import(/* webpackChunkName: "tutorial_mano_triple" */ "../views/Tutorial/views/Mano/Triple.vue")
             }
         ]
     }
