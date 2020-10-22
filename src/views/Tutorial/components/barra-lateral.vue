@@ -11,6 +11,8 @@ div.barra-lateral
         router-link(to="/") Secuencia
         br
         router-link(to="/") Triple
+        br
+        router-link(to="/") Armar una mano
 
     router-link(to="/") Flujo del juego
     br
