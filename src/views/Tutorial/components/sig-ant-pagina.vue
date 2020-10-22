@@ -1,15 +1,14 @@
 <template lang="pug">
 div.sig-ant-pagina
     div.cont
-        div.link(v-if="rutaAnt" @click="irA(rutaAnt.ruta)")
-            p Anterior
-            p {{ rutaAnt.nombre }}
+        div.link(v-if="rutaAnt")
+            router-link(:to="rutaAnt.ruta")
+                p {{ rutaAnt.nombre }}
     div(style="opacity: 0") &nbsp;
     div.cont
-        div.link(v-if="rutaSig" @click="irA(rutaSig.ruta)")
-            router-link(to="/tutorial/cartas/")
-                p
-                    | {{ rutaSig.nombre }}
+        div.link(v-if="rutaSig")
+            router-link(:to="rutaSig.ruta")
+                p {{ rutaSig.nombre }}
 
 //
 </template>
@@ -66,6 +65,8 @@ a
     display: inline-block
     width: 100%
     color: var(--color-texto)
+    p
+        text-align: center
 
 //
 </style>

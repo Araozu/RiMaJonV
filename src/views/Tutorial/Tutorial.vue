@@ -5,7 +5,8 @@ div.contenedor-tutorial
     div.layout.contenido
         h1 Tutorial de RiMaJon
 
-        router-view
+        slot-estilos
+            router-view
 
 //
 </template>
@@ -13,10 +14,11 @@ div.contenedor-tutorial
 <script lang="ts">
 import {defineComponent} from "vue";
 import barraLateral from "./components/barra-lateral.vue";
+import slotEstilos from "./components/slot-estilos.vue"
 
 export default defineComponent({
     name: "Tutorial",
-    components: {barraLateral}
+    components: {barraLateral, slotEstilos}
 });
 
 </script>
