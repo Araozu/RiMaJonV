@@ -1,6 +1,5 @@
 <template lang="pug">
-div
-    slot
+slot
 
 //
 </template>

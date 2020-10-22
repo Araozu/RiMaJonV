@@ -3,12 +3,15 @@ div.sig-ant-pagina
     div.cont
         div.link(v-if="rutaAnt")
             router-link(:to="rutaAnt.ruta")
-                p {{ rutaAnt.nombre }}
+                p
+                    i.ph-arrow-left
+                    | &nbsp;{{ rutaAnt.nombre }}
     div(style="opacity: 0") &nbsp;
     div.cont
         div.link(v-if="rutaSig")
             router-link(:to="rutaSig.ruta")
-                p {{ rutaSig.nombre }}
+                p {{ rutaSig.nombre }}&nbsp;
+                    i.ph-arrow-right
 
 //
 </template>

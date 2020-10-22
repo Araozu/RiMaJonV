@@ -57,7 +57,7 @@ export default defineComponent({
 
         const rutaSig = {
             nombre: "Mano",
-            ruta: "/mano/"
+            ruta: "/tutorial/mano/"
         };
 
         return {
