@@ -35,16 +35,15 @@ export default defineComponent({
         const op = computed(() => props.oportunidad as OportunidadWin)
 
         const enviarSolicitudWin = () => {
-            if (op.value !== undefined) {
-                props.ws.send(JSON.stringify({
-                    operacion: "llamar_win",
-                    datos: JSON.stringify({
-                        idJuego,
-                        idUsuario: props.idUsuario,
-                        cartaDescartada: op.value.cartaDescartada
-                    })
-                }));
-            }
+            console.log(props.oportunidad);
+            props.ws.send(JSON.stringify({
+                operacion: "llamar_ron",
+                datos: JSON.stringify({
+                    idJuego,
+                    idUsuario: props.idUsuario,
+                    cartaDescartada: op.value.cartaDescartada
+                })
+            }));
         };
 
         return {

@@ -306,8 +306,8 @@ div
                 h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
                     | Exterior
-                p Solo 1 y 10. -1 punto en mano abierta.
-                grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 52, 52, 53]")
+                p Solo 1, 10, dragones y reyes. -1 punto en mano abierta.
+                grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 52, 52, 53, 128, 128]")
 
             div.yaku
                 h4 Escalera full
