@@ -303,6 +303,11 @@ div
         div.pad
 
             div.yaku
+                h4 A-10
+                p Solo A y 10.
+                grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 35, 52, 52]")
+
+            div.yaku
                 h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
                     | Exterior
@@ -328,9 +333,23 @@ div
                 p 3 triples en mano cerrada
                 grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
 
-        h3 10 puntos
+        h3 12 puntos
 
         div.pad
+
+            div.yaku
+                h4
+                    i.ph-lock-bold.img-lock(title="En mano abierta -1 punto")
+                    | A-10 cerrado.
+                p Solo A y 10 en mano cerrada.
+                grupo-cartas(:cartas="[2, 2, 3, 20, 20, 21, 34, 35, 35, 52, 52]")
+                p No se acumula con ninguna otra mano.
+
+            div.yaku
+                h4 Escalera Perfecta
+                p Una Escalera Full, pero todas las cartas del mismo símbolo
+                grupo-cartas(:cartas="[34, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52]")
+                p No se acumula con ninguna otra mano.
 
             div.yaku
                 h4 Realeza full
@@ -344,7 +363,7 @@ div
                 grupo-cartas(:cartas="[64, 64, 64, 160, 160, 160, 192, 192, 192, 224, 224]")
                 p No se acumula con ninguna otra combinación.
 
-        h3 15 puntos
+        h3 20 puntos
 
         div.pad
 

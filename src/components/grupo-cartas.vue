@@ -1,5 +1,5 @@
 <template lang="pug">
-carta(v-for="(c, i) in cartas" :valor="c" :key="i")
+carta(v-for="(c, i) in cartas" :valor="c" :resaltarCarta="false" :key="i")
 
 //
 </template>
