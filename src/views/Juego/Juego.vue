@@ -238,7 +238,8 @@ export default defineComponent({
 
 .cont-2-juego
     position: absolute
-    border: solid 2px green
+    border: solid 3px #795548
+    background: radial-gradient(#004D40, #003027)
     transform: rotateX(2deg)
     width: 100%
     height: 100%
@@ -252,6 +253,7 @@ export default defineComponent({
     bottom: 41%
     right: 41%
     text-align: center
+    color: white
 
 //
 </style>

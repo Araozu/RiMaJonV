@@ -5,7 +5,7 @@ div.cont-carta(
         @mouseenter="aplicarResaltadoCarta"
         @mouseleave="quitarResaltadoCarta"
     )
-    div.c-carta(v-if="valor === 0" :class="[claseDora, claseResaltado]")
+    div.c-carta.c-carta-oculta-top(v-if="valor === 0")
         div.c-carta-oculta(v-html="'&nbsp;'")
     div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
         span.c-carta-numero {{ valorC }}
@@ -222,6 +222,10 @@ export default defineComponent({
 
     to
         transform: translateY(200%)
+
+
+.c-carta-oculta-top
+    background-color: var(--color-fondo)
 
 
 .c-carta-oculta
