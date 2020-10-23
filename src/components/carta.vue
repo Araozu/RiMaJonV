@@ -179,7 +179,7 @@ export default defineComponent({
 <style lang="sass" vars="{pxesc, escala}">
 
 .c-carta-resaltada
-    transform: translateY(-1rem)
+    transform: translateY(calc(var(--pxesc) * -1))
 
 .c-carta
     position: relative
