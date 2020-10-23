@@ -1,7 +1,12 @@
 <template lang="pug">
 div.opcion-mano(@click="enviarSolicitudSeq()" :style="{backgroundColor: '#3F51B5'}")
     div.contenedor-cartas-opcion-mano
-        carta(v-for="(c, i) in obtCartas()" :valor="c" :escala="0.5" :key="i")
+        carta(v-for="(c, i) in obtCartas()"
+            :valor="c"
+            :escala="0.5"
+            :key="i"
+            :resaltarCarta="false"
+        )
     span Tri
 
 //
