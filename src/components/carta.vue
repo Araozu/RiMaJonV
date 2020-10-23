@@ -1,14 +1,19 @@
 <template lang="pug">
-div.cont-carta(@click="fnDescartar" style="display: inline-block")
-    div.c-carta(v-if="valor === 0" :class="claseDora")
+div.cont-carta(
+        @click="fnDescartar"
+        style="display: inline-block"
+        @mouseenter="aplicarResaltadoCarta"
+        @mouseleave="quitarResaltadoCarta"
+    )
+    div.c-carta(v-if="valor === 0" :class="[claseDora, claseResaltado]")
         div.c-carta-oculta(v-html="'&nbsp;'")
-    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseDora]")
+    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
         span.c-carta-numero {{ valorC }}
         div.c-carta-img
             v-img-simbolo(:tipo="nombreSimbolo")
-    div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="['carta-' + tipoCarta, claseDora]")
+    div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
         img.img-dragon(:src="'/img/Dragon_' + colorDragon + '.webp'" :alt="'Dragon ' + colorDragon")
-    div.c-carta(v-else :class="['carta-' + tipoCarta, claseDora]" v-html="valorC")
+    div.c-carta(v-else :class="['carta-' + tipoCarta, claseDora, claseResaltado]" v-html="valorC")
 
 //
 </template>
@@ -40,16 +45,21 @@ export default defineComponent({
         escala: {
             type: Number,
             default: 1
+        },
+        resaltarCarta: {
+            type: Boolean,
+            default: true
         }
     },
     setup(props) {
         const {pH} = useDimensions();
         const store = useStore();
         const pxesc = computed(() => pH.value + "px");
+        const valorR = computed(() => props.valor);
 
         const {esOscuro} = getEsOscuro(store);
 
-        const tipo = computed<number>( () => (props.valor << 23) >>> 28);
+        const tipo = computed<number>( () => (valorR.value << 23) >>> 28);
         const tipoCarta = computed<string>(() => {
             switch (tipo.value) {
                 case 0:
@@ -77,7 +87,7 @@ export default defineComponent({
             switch (tipo.value) {
                 case 0:
                 case 1: {
-                    const valor = (props.valor << 27) >>> 28;
+                    const valor = (valorR.value << 27) >>> 28;
                     return valor === 1? "A": valor;
                 }
                 case 6:
@@ -93,9 +103,9 @@ export default defineComponent({
 
         const nombreSimbolo = computed(() => {
             if (tipo.value === 0) {
-                return (((props.valor << 31) >>> 31) === 1)? "trebol": "pica";
+                return (((valorR.value << 31) >>> 31) === 1)? "trebol": "pica";
             } else if (tipo.value === 1) {
-                return (((props.valor << 31) >>> 31) === 1)? "corazon": "diamante";
+                return (((valorR.value << 31) >>> 31) === 1)? "corazon": "diamante";
             } else {
                 return "";
             }
@@ -115,7 +125,6 @@ export default defineComponent({
             }
         });
 
-        const valorR = computed(() => props.valor);
         const claseDora = ref("");
         const claseDoraWatcher = getClaseDora(valorR, store);
         watchEffect(() => {
@@ -127,9 +136,27 @@ export default defineComponent({
             }
         });
 
+        const claseResaltado = computed(() => {
+            if (!props.resaltarCarta) return "";
+            const valorPar = (valorR.value >>> 1) << 1;
+            return (valorPar === store.state.cartaResaltada)? "c-carta-resaltada": "";
+        });
+
         const fnDescartar = () => {
-            props.fnDescartar!!(props.valor);
+            props.fnDescartar!!(valorR.value);
         }
+
+        const aplicarResaltadoCarta = () => {
+            if (!props.resaltarCarta) return;
+            if (valorR.value <= 1) return;
+            const valorCarta = (valorR.value >>> 1) << 1;
+            store.commit("setCartaResaltada", valorCarta);
+        };
+
+        const quitarResaltadoCarta = () => {
+            if (!props.resaltarCarta) return;
+            store.commit("setCartaResaltada", -2);
+        };
 
         return {
             tipo,
@@ -138,7 +165,10 @@ export default defineComponent({
             nombreSimbolo,
             colorDragon,
             claseDora,
+            claseResaltado,
             fnDescartar,
+            aplicarResaltadoCarta,
+            quitarResaltadoCarta,
             pxesc
         }
     }
@@ -147,6 +177,9 @@ export default defineComponent({
 </script>
 
 <style lang="sass" vars="{pxesc, escala}">
+
+.c-carta-resaltada
+    transform: translateY(-1rem)
 
 .c-carta
     position: relative
@@ -177,7 +210,6 @@ export default defineComponent({
         top: -95%
         width: 100%
         height: 100%
-        color: #ffb500
         background-image: linear-gradient(135deg, rgba(210, 210, 210, 0.0) 0%, rgba(210, 210, 210, 0.0) 35%, rgba(210, 210, 210, 0.3) 45%, rgba(210, 210, 210, 0.9) 53%, rgba(210, 210, 210, 0.3) 57%, rgba(210, 210, 210, 0.0) 65%, rgba(210, 210, 210, 0.0) 100%)
         transition: transform 500ms
         animation-duration: 5s

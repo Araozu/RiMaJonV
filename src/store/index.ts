@@ -6,6 +6,7 @@ const vuexLocal = new VuexPersistence({
     reducer(state: RiMaJonState) {
         const datos = Object.assign({}, state);
         delete datos.dora;
+        delete datos.cartaResaltada;
         return datos;
     }
 });
@@ -15,7 +16,8 @@ export interface RiMaJonState {
     nombreUsuario: string | undefined,
     modoColor: string,
     modoColorUsuario: string,
-    dora: [Array<number>, Array<number>]
+    dora: [Array<number>, Array<number>],
+    cartaResaltada: number
 }
 
 export default createStore<RiMaJonState>({
@@ -24,7 +26,8 @@ export default createStore<RiMaJonState>({
         nombreUsuario: undefined,
         modoColor: "auto",
         modoColorUsuario: "claro",
-        dora: [[], []]
+        dora: [[], []],
+        cartaResaltada: -2
     },
     mutations: {
         setIdUsuario(state, id) {
@@ -44,6 +47,9 @@ export default createStore<RiMaJonState>({
         },
         setDora(state, dora) {
             state.dora = dora;
+        },
+        setCartaResaltada(state, valor) {
+            state.cartaResaltada = valor;
         }
     },
     actions: {},
