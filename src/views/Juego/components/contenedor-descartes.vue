@@ -65,13 +65,22 @@ export default defineComponent({
     bottom: 17%
     right: 37.5%
     text-align: left
-    border-radius: calc(var(--phx) * 1.5 * var(--escala))
     border-top-style: solid
     border-top-width: calc(var(--phx) * 1.25 * var(--escala))
-    border-top-color: #4CAF50
+    border-top-color: transparent
+
 
 .cont-cuadrante-descarte-turno-actual
-    border-top-color: red
+    border-top-color: #FF5722
+    animation-duration: 4s
+    animation-name: indicadorTurno
+    animation-iteration-count: infinite
+
+
+@keyframes indicadorTurno
+    50%
+        border-top-color: #FFEB3B
+
 
 //
 </style>

@@ -42,11 +42,13 @@ export default defineComponent({
 .cont-cuadrante-cartas-juego
     position: absolute
     display: inline-block
-    width: 18%
-    height: 18%
-    bottom: 41%
-    right: 41%
+    width: 24%
+    height: 24%
+    bottom: 37.5%
+    right: 37.5%
     text-align: center
+    border: solid calc(var(--phx) / 2) #212121
+    border-radius: calc(var(--phx))
 
 
 .txt-cartas
@@ -54,7 +56,7 @@ export default defineComponent({
 
 
 .img-dragon-partida
-    height: calc(var(--phx) * 12)
+    height: calc(var(--phx) * 15)
     width: auto
 
 //
