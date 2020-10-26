@@ -1,6 +1,6 @@
 <template lang="pug">
 div.cont-cuadrante-cartas-juego
-    img.img-dragon-partida(:src="rutaImgDragon")
+    img.img-dragon-partida(:src="rutaImgDragon" title="Dragon de la partida")
     br
     span.txt-cartas {{ cartasRestantes }} cartas
 
@@ -49,6 +49,7 @@ export default defineComponent({
     text-align: center
     border: solid calc(var(--phx) / 2) #212121
     border-radius: calc(var(--phx))
+    z-index: 10
 
 
 .txt-cartas

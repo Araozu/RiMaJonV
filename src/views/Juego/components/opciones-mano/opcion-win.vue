@@ -28,7 +28,7 @@ export default defineComponent({
     },
     setup(props) {
         const route = useRoute();
-        const {pH, phx} = useDimensions();
+        const {pH} = useDimensions();
 
         const idJuego = route.params.id;
 
@@ -48,15 +48,14 @@ export default defineComponent({
 
         return {
             enviarSolicitudWin,
-            tamano: computed(() => (pH.value * -0.75) + "px"),
-            phx
+            tamano: computed(() => (pH.value * -0.75) + "px")
         }
     }
 });
 
 </script>
 
-<style scoped lang="sass" vars="{tamano, phx}">
+<style lang="sass" vars="{tamano}">
 
 .opcion-mano
     position: relative

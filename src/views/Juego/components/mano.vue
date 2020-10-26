@@ -12,16 +12,18 @@ div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
             :ws="ws"
             :oportunidad="oportunidadSeq"
         )
-        div.opcion-mano(v-if="oportunidadQuad" :style="{backgroundColor: '#9C27B0'}")
-            | Quad
         opcion-win(v-if="oportunidadWin"
             :idUsuario="idUsuario"
             :ws="ws"
             :oportunidad="oportunidadWin"
         )
-        opcion-ignorar(v-if="oportunidadTri || oportunidadSeq || oportunidadQuad || oportunidadWin"
+        opcion-ignorar(v-if="oportunidadTri || oportunidadSeq || oportunidadWin"
             :idUsuario="idUsuario" :ws="ws"
         )
+    div.contenedor-dragon-jugador
+        img.imagen-dragon-jugador(:src="rutaDragonJugador" title="Dragon del jugador")
+        i.ph-lock.img-lock-jugador(v-if="idUsuario && mano.cartasReveladas.length === 0" title="Mano cerrada")
+        i.ph-lock-open.img-lock-jugador(v-else-if="idUsuario && mano.cartasReveladas.length !== 0" title="Mano abierta")
     div.cuadrante-mano
         carta(v-for="(c, i) in cartas" :valor="c" :movimiento="posiciones[i]" :fnDescartar="descartarCarta" :key="i")
         carta(:valor="-1")
@@ -164,12 +166,13 @@ export default defineComponent({
             return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Tri")
         });
 
-        const oportunidadQuad = computed<Oportunidad | undefined>(() => {
-            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Quad")
-        });
-
         const oportunidadWin = computed<Oportunidad | undefined>(() => {
             return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Win")
+        });
+
+        const rutaDragonJugador = computed(() => {
+            const nombreDragonMin = props.mano?.dragon?.toLowerCase();
+            return `/img/Dragon_${nombreDragonMin}.webp`;
         });
 
         return {
@@ -178,8 +181,8 @@ export default defineComponent({
             descartarCarta,
             oportunidadSeq,
             oportunidadTri,
-            oportunidadQuad,
             oportunidadWin,
+            rutaDragonJugador,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }
     }
@@ -227,6 +230,21 @@ export default defineComponent({
     right: 0
     text-align: left
 
+
+.contenedor-dragon-jugador
+    position: absolute
+    bottom: 10%
+    left: 13%
+
+
+.imagen-dragon-jugador
+    width: calc(var(--phx) * 5)
+
+
+.img-lock-jugador
+    font-size: calc(var(--phx) * 3)
+    display: inline-block
+    padding-left: calc(var(--phx))
 
 //
 </style>

@@ -3,7 +3,6 @@ div.opcion-mano(v-for="opcion in opciones" @click="enviarSolicitudSeq(opcion)" :
     div.contenedor-cartas-opcion-mano
         carta(v-for="(c, i) in obtCartasOrdenadas(opcion)"
             :valor="c"
-            :escala="0.5"
             :key="i"
             :resaltarCarta="false"
         )
@@ -37,7 +36,7 @@ export default defineComponent({
     },
     setup(props) {
         const route = useRoute();
-        const {pH, phx} = useDimensions();
+        const {pH} = useDimensions();
 
         const idJuego = route.params.id;
 
@@ -70,14 +69,14 @@ export default defineComponent({
             enviarSolicitudSeq,
             obtCartasOrdenadas,
             tamano: computed(() => (pH.value * -0.75) + "px"),
-            phx
+            escala: 0.5
         }
     }
 });
 
 </script>
 
-<style scoped lang="sass" vars="{tamano, phx}">
+<style lang="sass" vars="{tamano, escala}">
 
 .contenedor-cartas-opcion-mano
     position: absolute
