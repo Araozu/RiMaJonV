@@ -32,15 +32,6 @@ div.barra-lateral
 
     router-link(to="/") Mano abierta/cerrada
     br
-    router-link(to="/") Cuádruple
-    div.inner
-        router-link(to="/") Robar para formar un cuádruple
-        br
-        router-link(to="/") Formar un cuádruple al recibir una carta
-        br
-        router-link(to="/") Formar un cuádruple en un triple robado
-        br
-        router-link(to="/") Bonus abierto
 
     router-link(to="/") Yaku - Manos
     div.inner

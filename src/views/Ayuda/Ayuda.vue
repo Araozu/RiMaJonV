@@ -224,11 +224,6 @@ div
                 grupo-cartas(:cartas="[4, 7, 8, 8, 9, 12, 15, 16, 64, 64, 64]")
 
             div.yaku
-                h4 Triple cuádruples
-                p 3 cuádruples
-                grupo-cartas(:cartas="[44, 45, -1, 128, 128, 128, 128, -1, 20, 20, 21, 21, -1, 40, 40, 41, 41]")
-
-            div.yaku
                 h4
                     i.ph-lock-open-bold.img-lock(title="En mano abierta -1 punto")
                     | Escalera
