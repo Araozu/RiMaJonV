@@ -1,14 +1,14 @@
 <template lang="pug">
 div.cont-cuadrante-cartas-juego
-    span.num-cartas(:style="{fontSize: `${pH * 10}px`}") {{ cartasRestantes }}
+    img.img-dragon-partida(:src="rutaImgDragon")
     br
-    span.txt-cartas(:style="{fontSize: `${pH * 2.5}px`}") Cartas restantes {{ dragonPartida }}
+    span.txt-cartas {{ cartasRestantes }} cartas
 
 //
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, computed} from "vue";
 
 export default defineComponent({
     name: "contenedor-cartas",
@@ -23,8 +23,14 @@ export default defineComponent({
         }
     },
     setup(props) {
-        return {
+        const rutaImgDragon = computed(() => {
+            const nombreDragonMin = props.dragonPartida.toLowerCase();
 
+            return `/img/Dragon_${nombreDragonMin}.webp`;
+        });
+
+        return {
+            rutaImgDragon
         };
     }
 });
@@ -42,12 +48,14 @@ export default defineComponent({
     right: 41%
     text-align: center
 
-    .num-cartas
-        font-size: calc(var(--pH) * 10px)
 
-    .txt-cartas
-        font-size: calc(var(--pH) * 2.5px)
+.txt-cartas
+    font-size: calc(var(--phx) * 2)
 
+
+.img-dragon-partida
+    height: calc(var(--phx) * 12)
+    width: auto
 
 //
 </style>
