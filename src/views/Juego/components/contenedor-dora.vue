@@ -1,8 +1,8 @@
 <template lang="pug">
 div.contenedor-dora
-    carta(v-for="(c, i) in doraCerrado" :valor="c" :escala="0.75" :key="i")
+    carta(v-for="(c, i) in doraCerrado" :valor="c" :key="i")
     br
-    carta(v-for="(c, i) in doraAbierto" :valor="c" :escala="0.75" :key="i")
+    carta(v-for="(c, i) in doraAbierto" :valor="c" :key="i")
     br
     span(v-if="turnosRestantes === 1") Bonus en {{turnosRestantes}} turno
     span(v-else-if="turnosRestantes > 1") Bonus en {{turnosRestantes}} turnos
@@ -27,8 +27,6 @@ export default defineComponent({
     },
     setup() {
         const store = useStore();
-        const {pH} = useDimensions();
-        const pHc = computed(() => pH.value + "px");
 
         const doraCerrado = computed(() => {
             const narr = [...store.state.dora[0]];
@@ -48,23 +46,23 @@ export default defineComponent({
         return {
             doraCerrado,
             doraAbierto,
-            pHc
+            escala: 0.75
         }
     }
 });
 
 </script>
 
-<style lang="sass" vars="{pHc}">
+<style lang="sass" vars="{escala}">
 
 .contenedor-dora
     position: fixed
-    top: calc(var(--pHc) * 2)
-    left: calc(var(--pHc) * 2)
-    padding: var(--pHc)
-    border-radius: calc(var(--pHc) / 2)
-    font-size: calc(var(--pHc) * 2.5)
-    box-shadow: 0 0 calc(var(--pHc) * 0.75) calc(var(--pHc) * 0.75) #dedede
+    top: calc(var(--phx) * 2)
+    left: calc(var(--phx) * 2)
+    padding: var(--phx)
+    border-radius: calc(var(--phx) / 2)
+    font-size: calc(var(--phx) * 2.5)
+    box-shadow: 0 0 calc(var(--phx) * 0.75) calc(var(--phx) * 0.75) #dedede
     background-color: var(--color-fondo)
 
 //

@@ -1,5 +1,5 @@
 <template lang="pug">
-div.cont-cuadrante-2-mano
+div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
     contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
     div.cont-opciones-mano
         opcion-tri(v-if="oportunidadTri"
@@ -77,7 +77,7 @@ export default defineComponent({
         fnDescartarCarta: Function
     },
     setup(props) {
-        const {pH, phx} = useDimensions();
+        const {pH} = useDimensions();
         const anchoCarta = computed(() => pH.value * 5 + 2 * (pH.value * 0.225))
         const cartas = ref<number[]>((props.mano as Mano).cartas);
         const posicion = props.posicion;
@@ -180,7 +180,6 @@ export default defineComponent({
             oportunidadTri,
             oportunidadQuad,
             oportunidadWin,
-            phx,
             posicionW: computed(() => (90 * (5 - posicion!!)) + "deg")
         }
     }
@@ -188,7 +187,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped lang="sass" vars="{phx, posicionW}">
+<style lang="sass">
 
 .cont-opciones-mano
     position: absolute
@@ -218,7 +217,6 @@ export default defineComponent({
     position: absolute
     width: 100%
     height: 100%
-    transform: rotate(var(--posicionW))
 
 
 .cuadrante-mano

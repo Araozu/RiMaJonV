@@ -3,10 +3,7 @@ div
     contenedor-dora(:turnosRestantes="turnosDora")
     div.con-int-juego
         div.cont-2-juego
-            div.cont-cuadrante-cartas-juego
-                span(:style="{fontSize: `${pH * 10}px`}") {{ cartasRestantes }}
-                br
-                span(:style="{fontSize: `${pH * 2.5}px`}") Cartas restantes
+            contenedorCartas(:cartasRestantes="cartasRestantes" :dragonPartida="dragonPartida")
             mano(:mano="mano2" :posicion="2" :esTurnoActual="turnoActual === obtClaveMap('2')")
             mano(:mano="mano3" :posicion="3" :esTurnoActual="turnoActual === obtClaveMap('3')")
             mano(:mano="mano4" :posicion="4" :esTurnoActual="turnoActual === obtClaveMap('4')")
@@ -23,13 +20,14 @@ div
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, computed, onMounted, onUnmounted} from "vue";
+import {defineComponent, ref, onMounted, onUnmounted} from "vue";
 import { useRoute } from "vue-router";
 import { useDimensions } from "@/components/useDimensions";
 import { useStore } from "vuex";
 import { wsServidor } from "@/variables";
 import contenedorDora from "./components/contenedor-dora.vue"
 import mano from "@/views/Juego/components/mano.vue";
+import contenedorCartas from "./components/contenedor-cartas.vue"
 
 const manoInicial = {
     cartas: [],
@@ -49,13 +47,11 @@ const obtClave = (obj: any, valor: string): string | undefined => {
 
 export default defineComponent({
     name: "Juego",
-    components: {contenedorDora, mano},
+    components: {contenedorDora, mano, contenedorCartas},
     setup() {
         const route = useRoute();
         const store = useStore();
-        const {pH, pW} = useDimensions();
-        const ph = computed(() => pH.value + "px");
-        const pw = computed(() => pW.value + "px");
+        const {pH, phx, pW, pwx} = useDimensions();
 
         const esPantallaCompleta = ref(false);
         const dora = ref([0, 0, 0, 0, 0]);
@@ -64,6 +60,8 @@ export default defineComponent({
         const cartasRestantes = ref(58);
         const cartaDescartada = ref(false);
         const turnosDora = ref(32);
+
+        const dragonPartida = ref("");
 
         const mano1 = ref(manoInicial);
         const mano2 = ref(manoInicial);
@@ -115,6 +113,7 @@ export default defineComponent({
                         store.commit("setDora", [info.datos.dora, info.datos.doraOculto]);
 
                         turnosDora.value = info.datos.turnosHastaDora;
+                        dragonPartida.value = d.dragonPartida;
 
                         // Mapear IDS a posiciones
                         const turnoJugador = d.ordenJugadores.findIndex((id: string) => id === idUsuario);
@@ -206,6 +205,7 @@ export default defineComponent({
             doraOculto,
             turnosDora,
             cartasRestantes,
+            dragonPartida,
             idUsuario,
             socket,
             mano1,
@@ -216,23 +216,25 @@ export default defineComponent({
             obtClaveMap,
             descartarCarta,
             pH,
-            ph,
-            pw,
+            phx,
+            pW,
+            pwx,
+            escala: 1
         }
     }
 });
 
 </script>
 
-<style lang="sass" vars="{ph, pw}">
+<style lang="sass" vars="{pH, phx, pW, pwx, escala}">
 
 .con-int-juego
     position: absolute
     top: 0
-    left: calc((var(--pw) * 100 - var(--ph) * 100) / 2)
-    width: calc(var(--ph) * 100)
-    height: calc(var(--ph) * 100)
-    perspective: calc(var(--pw) * 10)
+    left: calc((var(--pwx) * 100 - var(--phx) * 100) / 2)
+    width: calc(var(--phx) * 100)
+    height: calc(var(--phx) * 100)
+    perspective: calc(var(--pwx) * 10)
     transform-style: preserve-3d
 
 

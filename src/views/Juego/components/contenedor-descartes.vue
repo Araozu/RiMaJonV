@@ -1,7 +1,7 @@
 <template lang="pug">
 div.cont-cuadrante-descarte(:class="claseTurnoActual")
     div(v-for="cartas in grupoCartas")
-        carta(v-for="(c, i) in cartas" :valor="c" :escala="escala" :key="i")
+        carta(v-for="(c, i) in cartas" :valor="c" :key="i")
 
 //
 </template>
@@ -44,22 +44,19 @@ export default defineComponent({
         }
     },
     setup(props) {
-        const {phx} = useDimensions();
-
         const grupoCartas = computed(() => splitArray(props.cartas as number[], 6));
         const claseTurnoActual = computed(() => props.esTurnoActual? "cont-cuadrante-descarte-turno-actual": "");
 
         return {
             grupoCartas,
-            claseTurnoActual,
-            phx
+            claseTurnoActual
         }
     }
 });
 
 </script>
 
-<style scoped lang="sass" vars="{phx, escala}">
+<style lang="sass" vars="{escala}">
 
 .cont-cuadrante-descarte
     position: absolute

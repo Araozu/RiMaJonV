@@ -42,19 +42,13 @@ export default defineComponent({
             type: Function,
             required: false
         },
-        escala: {
-            type: Number,
-            default: 1
-        },
         resaltarCarta: {
             type: Boolean,
             default: true
         }
     },
     setup(props) {
-        const {pH} = useDimensions();
         const store = useStore();
-        const pxesc = computed(() => pH.value + "px");
         const valorR = computed(() => props.valor);
 
         const {esOscuro} = getEsOscuro(store);
@@ -168,30 +162,29 @@ export default defineComponent({
             claseResaltado,
             fnDescartar,
             aplicarResaltadoCarta,
-            quitarResaltadoCarta,
-            pxesc
+            quitarResaltadoCarta
         }
     }
 });
 
 </script>
 
-<style lang="sass" vars="{pxesc, escala}">
+<style lang="sass">
 
 .c-carta-resaltada
-    transform: translateY(calc(var(--pxesc) * -1))
+    transform: translateY(calc(var(--phx) * -1))
 
 .c-carta
     position: relative
     font:
-        size: calc(var(--pxesc) * 4 * var(--escala))
+        size: calc(var(--phx) * 4 * var(--escala))
         weight: normal
         family: "Secular One", "Pt Serif", serif
     display: table-cell
-    border: solid calc(var(--pxesc) * 0.2 * var(--escala)) var(--color-borde)
-    width: calc(var(--pxesc) * 5 * var(--escala))
-    height: calc(var(--pxesc) * 8.5 * var(--escala))
-    min-width: calc(var(--pxesc) * 5 * var(--escala))
+    border: solid calc(var(--phx) * 0.2 * var(--escala)) var(--color-borde)
+    width: calc(var(--phx) * 5 * var(--escala))
+    height: calc(var(--phx) * 8.5 * var(--escala))
+    min-width: calc(var(--phx) * 5 * var(--escala))
     text-align: center
     vertical-align: middle
     cursor: pointer
@@ -232,7 +225,7 @@ export default defineComponent({
     display: inline-block
     width: 60%
     height: 80%
-    border: solid calc(var(--pxesc) * 0.4 * var(--escala)) var(--color-texto)
+    border: solid calc(var(--phx) * 0.4 * var(--escala)) var(--color-texto)
     border-radius: 0.1rem
     opacity: 0.75
 
