@@ -130,59 +130,10 @@ div
         div.pad
             h3 Funcionamiento
 
-            p Cada indicador apunta a un tipo de carta (llamado bonus), haciendo que esa carta valga 1 punto extra.
-            p Los bonus son:
-            ol
-                li Del mismo tipo que el indicador
-                li La carta que sigue al indicador
-
-            p Por ejemplo, si los indicadores son los siguientes:
-            grupo-cartas(:cartas="[48, 0, 0, 0, 0]")
-            br
-            grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
-
-            p Entonces el bonus es el 9 rojo. Cada uno de ellos vale 1 punto.
-            grupo-cartas(:cartas="[50]")
-
-            br
-            br
-            p Si los indicadores son los siguientes:
-            grupo-cartas(:cartas="[2, 38, 52, 0, 0]")
-            br
-            grupo-cartas(:cartas="[96, 192, 0, 0, 0]")
-
-            p Los bonus son el 2 negro, 4 rojo, A rojo, dragon verde y Q
-            grupo-cartas(:cartas="[4, -1, 40, -1, 34, -1, 128, -1, 224]")
-
-            h3 Secuencia de las cartas
-
-            p La secuencia de las cartas es la siguiente:
-            grupo-cartas(:cartas="[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]")
-            p Cuando se llega a la última carta de un tipo, se regresa al inicio.
-            p Por ejemplo, si el indicador es el 10 negro, entonces el bonus es el A negro.
-            br
-            grupo-cartas(:cartas="[34, 36, 38, 40, 42, 44, 46, 48, 50, 52]")
-            p Si el indicador es el 10 rojo, entonces el bonus es el A rojo.
-            br
-            grupo-cartas(:cartas="[64, 96, 128, 160]")
-            p Si el indicador es el dragon azul, entonces el bonus es el dragon negro.
-            br
-            grupo-cartas(:cartas="[192, 224, 256]")
-            p Si el indicador es K, entonces el bonus es J.
-            br
+            p Cada carta igual al indicador vale 0.2 puntos extra.
 
             h3 Indicadores y bonus repetidos
-            p Si algún bonus se repite, cada uno de ellos brinda 1 punto.
-            p Si algún indicador se repite, cada uno de los bonus a los que apunta brinda 1 punto.
-
-            p Por ejemplo, si los indicadores son los siguientes:
-            grupo-cartas(:cartas="[12, 12, 0, 0, 0]")
-            br
-            grupo-cartas(:cartas="[0, 0, 0, 0, 0]")
-
-            p.
-                Entonces cada 7 negro vale 2 puntos extra. Si juntas dos 7 negros tienes 4 puntos,
-                con tres 7 negros tienes 6 puntos, etc.
+            p Si algún bonus se repite se aumenta su valor.
 
 
     h2 Indicadores de dragones
@@ -203,11 +154,11 @@ div
 
     div.tabla-puntos
 
-        h3 1 punto - Bonus
+        h3 0.2 puntos - Bonus
         div.yaku
             p Cualquier bonus en una mano ganadora. 100% acumulable.
 
-        h3 3 puntos
+        h3 1 puntos
 
         div.pad
 
@@ -222,13 +173,6 @@ div
                 h4 Realeza
                 p 1 triple de J, K o Q.
                 grupo-cartas(:cartas="[5, 5, 4, 40, 43, 44, 128, 128, 256, 256, 256]")
-
-            div.yaku
-                h4
-                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
-                    | Triple secuencia cerrada
-                p 3 secuencias en mano cerrada.
-                grupo-cartas(:cartas="[4, 6, 9, 13, 15, 16, 36, 38, 40, 96, 96]")
 
             div.yaku
                 h4 Triple triples
@@ -252,7 +196,7 @@ div
                     | 1 par del mismo número, color y símbolo en mano cerrada
                 grupo-cartas(:cartas="[6, 9, 11, 12, 15, 16, 41, 41, 128, 128, 128]")
 
-        h3 4 puntos
+        h3 2 puntos
 
         div.pad
 
@@ -298,7 +242,7 @@ div
                 p 2,3,4,5,6,7,8,9,10 del mismo color. -1 punto en mano abierta.
                 grupo-cartas(:cartas="[5, 7, 9, 10, 12, 14, 17, 18, 20, 41, 41]")
 
-        h3 5 puntos
+        h3 3 puntos
 
         div.pad
 
@@ -333,7 +277,7 @@ div
                 p 3 triples en mano cerrada
                 grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
 
-        h3 12 puntos
+        h3 7 puntos
 
         div.pad
 
@@ -363,7 +307,7 @@ div
                 grupo-cartas(:cartas="[64, 64, 64, 160, 160, 160, 192, 192, 192, 224, 224]")
                 p No se acumula con ninguna otra combinación.
 
-        h3 20 puntos
+        h3 10 puntos
 
         div.pad
 
@@ -379,6 +323,12 @@ div
                 grupo-cartas(:cartas="[128, 128, 128, 192, 192, 192, 224, 224, 224, 256, 256]")
                 p No se acumula con ninguna otra combinación.
 
+    p Formula para puntos: 1000 + 270 * x^2 - 18 x^3
+    p Máxima cantidad de puntos: 10 - equivale a 10000
+
+    img(src="/img/formula_puntos_rimajon.png")
+    br
+    img(src="/img/grafica_puntos_rimajon.png")
 
 //
 </template>
