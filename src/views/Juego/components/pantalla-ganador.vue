@@ -7,7 +7,7 @@ div.contenedor-pantalla-ganador(v-if="manoGanadora" :style="'--escala: 1.5; --ph
     hr
 
     h2 Yaku:
-    h3.yaku(v-for="y in yaku") {{ y }}
+    h3.yaku(v-for="y in yaku") {{ y }} : {{ obtValorYaku(y) }} puntos
 
     hr
 
@@ -23,6 +23,7 @@ import { useDimensions } from "@/components/useDimensions";
 import { Mano } from "@/views/Juego/types/Mano";
 import grupoCartas from "@/components/grupo-cartas.vue"
 import { OportunidadWin } from "@/views/Juego/types/Oportunidad";
+import { obtValorYaku, Yaku } from "@/views/Juego/types/valoresYaku";
 
 export default defineComponent({
     name: "pantalla-ganador",
@@ -71,7 +72,7 @@ export default defineComponent({
             return cartas;
         });
 
-        const yaku = computed<Array<string>>(() => {
+        const yaku = computed<Array<Yaku>>(() => {
             if (manoGanadora.value === undefined) return [];
 
             const oportunidadWin = manoGanadora.value!!.oportunidades.find((o) => o.nombreOportunidad === "Win")!! as OportunidadWin;
@@ -79,7 +80,12 @@ export default defineComponent({
         });
 
         const valorMano = computed(() => {
-            const n = yaku.value.length;
+            let n = 0;
+            for (const y of yaku.value) {
+                n += obtValorYaku(y)
+            }
+            if (n === 0) return 100;
+
             const preValor = 1000 + (270 * n**2) - (18 * n**3);
             // Eliminar los 2 ultimos números.
             return Math.floor(preValor / 100) * 100;
@@ -90,7 +96,8 @@ export default defineComponent({
             cartasManoGanadora,
             phx,
             valorMano,
-            yaku
+            yaku,
+            obtValorYaku
         }
     }
 });

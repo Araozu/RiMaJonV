@@ -1,3 +1,5 @@
+import { Yaku } from "@/views/Juego/types/valoresYaku";
+
 export declare interface Oportunidad {
     cartaDescartada: number;
     nombreOportunidad: string;
@@ -19,5 +21,5 @@ export declare class OportunidadWin implements Oportunidad {
     cartaDescartada: number;
     nombreOportunidad: string;
     esTsumo: boolean;
-    yaku: string[];
+    yaku: Yaku[];
 }
