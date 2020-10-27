@@ -9,5 +9,6 @@ export declare class Mano {
     sigCarta: number
     oportunidades: Oportunidad[]
     dragon: Dragon
+    esGanador: boolean
 }
 

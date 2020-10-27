@@ -20,6 +20,10 @@ export default defineComponent({
         ws: {
             type: WebSocket,
             required: true
+        },
+        tipoOportunidad: {
+            type: String,
+            default: "oportunidad"
         }
     },
     setup(props) {
@@ -30,7 +34,7 @@ export default defineComponent({
 
         const enviarSolicitudIgnorarOportunidad = () => {
             props.ws.send(JSON.stringify({
-                operacion: "ignorar_oportunidad",
+                operacion: `ignorar_${props.tipoOportunidad}`,
                 datos: JSON.stringify({
                     idJuego,
                     idUsuario: props.idUsuario

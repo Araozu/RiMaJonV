@@ -1,7 +1,7 @@
 <template lang="pug">
 div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
     contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
-    div.cont-opciones-mano
+    div.cont-opciones-mano(v-if="mano.esGanador === false")
         opcion-tri(v-if="oportunidadTri"
             :idUsuario="idUsuario"
             :ws="ws"
@@ -19,11 +19,11 @@ div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
         )
         opcion-ignorar(v-if="oportunidadTri || oportunidadSeq || oportunidadWin"
             :idUsuario="idUsuario" :ws="ws"
+            :tipoOportunidad="(oportunidadWin && oportunidadWin.esTsumo)? 'tsumo': 'oportunidad'"
         )
     div.contenedor-dragon-jugador
         img.imagen-dragon-jugador(:src="rutaDragonJugador" title="Dragon del jugador")
         i.ph-lock.img-lock-jugador(v-if="idUsuario && mano.cartasReveladas.length === 0" title="Mano cerrada")
-        i.ph-lock-open.img-lock-jugador(v-else-if="idUsuario && mano.cartasReveladas.length !== 0" title="Mano abierta")
     div.cuadrante-mano
         carta(v-for="(c, i) in cartas" :valor="c" :movimiento="posiciones[i]" :fnDescartar="descartarCarta" :key="i")
         carta(:valor="-1")

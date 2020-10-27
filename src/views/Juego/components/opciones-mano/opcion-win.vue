@@ -40,8 +40,7 @@ export default defineComponent({
                 operacion: "llamar_ron",
                 datos: JSON.stringify({
                     idJuego,
-                    idUsuario: props.idUsuario,
-                    cartaDescartada: op.value.cartaDescartada
+                    idUsuario: props.idUsuario
                 })
             }));
         };

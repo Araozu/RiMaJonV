@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+    pantalla-ganador(:datos="datosJuego")
     contenedor-dora(:turnosRestantes="turnosDora")
     div.con-int-juego
         div.cont-2-juego
@@ -28,15 +29,19 @@ import { wsServidor } from "@/variables";
 import contenedorDora from "./components/contenedor-dora.vue"
 import mano from "@/views/Juego/components/mano.vue";
 import contenedorCartas from "./components/contenedor-cartas.vue"
+import pantallaGanador from "./components/pantalla-ganador.vue"
+import { EstadoJuego } from "@/views/Juego/types/EstadoJuego";
+import { DatosJuego } from "@/views/Juego/types/DatosJuego";
+import { Dragon, Mano } from "@/views/Juego/types/Mano";
 
-const manoInicial = {
+const manoInicial: Mano = {
     cartas: [],
-    allIn: false,
-    cartaSig: -1,
     cartasReveladas: [],
     descartes: [],
     sigCarta: -1,
-    oportunidades: []
+    oportunidades: [],
+    dragon: "Negro" as Dragon,
+    esGanador: false
 };
 
 const obtClave = (obj: any, valor: string): string | undefined => {
@@ -47,7 +52,7 @@ const obtClave = (obj: any, valor: string): string | undefined => {
 
 export default defineComponent({
     name: "Juego",
-    components: {contenedorDora, mano, contenedorCartas},
+    components: {contenedorDora, mano, contenedorCartas, pantallaGanador},
     setup() {
         const route = useRoute();
         const store = useStore();
@@ -63,12 +68,13 @@ export default defineComponent({
 
         const dragonPartida = ref("");
 
-        const mano1 = ref(manoInicial);
-        const mano2 = ref(manoInicial);
-        const mano3 = ref(manoInicial);
-        const mano4 = ref(manoInicial);
+        const mano1 = ref<Mano>(manoInicial);
+        const mano2 = ref<Mano>(manoInicial);
+        const mano3 = ref<Mano>(manoInicial);
+        const mano4 = ref<Mano>(manoInicial);
 
-        const oportunidades = ref({});
+        const estadoJuego = ref<EstadoJuego>("Iniciado");
+        const datosJuego = ref<DatosJuego>();
 
         const idJuego: string = route.params.id as string;
         const idUsuario = store.state.idUsuario;
@@ -106,14 +112,15 @@ export default defineComponent({
                 switch (info.operacion) {
                     case "actualizar_datos": {
                         cartaDescartada.value = false;
-                        const d = info.datos;
-                        console.log(info.datos);
-                        dora.value = info.datos.dora;
+                        const d: DatosJuego = info.datos;
+                        datosJuego.value = d;
+                        dora.value = d.dora;
                         doraOculto.value = info.datos.doraOculto;
                         store.commit("setDora", [info.datos.dora, info.datos.doraOculto]);
 
                         turnosDora.value = info.datos.turnosHastaDora;
                         dragonPartida.value = d.dragonPartida;
+                        estadoJuego.value = d.estadoJuego;
 
                         // Mapear IDS a posiciones
                         const turnoJugador = d.ordenJugadores.findIndex((id: string) => id === idUsuario);
@@ -123,7 +130,7 @@ export default defineComponent({
                         map[d.ordenJugadores[(turnoJugador + 3) % 4]] = "4";
 
                         for (const idUsuario in d.manos) {
-                            const mano = d.manos[idUsuario];
+                            const mano: Mano = d.manos[idUsuario];
                             const posMano = map[idUsuario];
 
                             const vSetMano = (() => {
@@ -173,9 +180,6 @@ export default defineComponent({
 
                         break;
                     }
-                    case "oportunidad": {
-                        oportunidades.value = info.datos;
-                    }
                 }
             });
 
@@ -213,6 +217,8 @@ export default defineComponent({
             mano3,
             mano4,
             turnoActual,
+            estadoJuego,
+            datosJuego,
             obtClaveMap,
             descartarCarta,
             pH,

@@ -1,6 +1,6 @@
 export declare interface Oportunidad {
-    cartaDescartada: number
-    nombreOportunidad: string
+    cartaDescartada: number;
+    nombreOportunidad: string;
 }
 
 export declare class OportunidadSeq implements Oportunidad {
@@ -18,4 +18,6 @@ export declare class OportunidadTri implements Oportunidad {
 export declare class OportunidadWin implements Oportunidad {
     cartaDescartada: number;
     nombreOportunidad: string;
+    esTsumo: boolean;
+    yaku: string[];
 }
