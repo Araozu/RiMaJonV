@@ -43,7 +43,7 @@ div.barra-lateral
         br
         router-link(to="/") Yaku no acumulable
 
-    router-link(to="/") Bonus
+    router-link(to="/tutorial/bonus") Bonus
     br
     router-link(to="/") Dragones
     div.inner
