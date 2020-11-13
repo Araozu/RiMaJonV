@@ -5,15 +5,20 @@ div.cont-carta(
         @mouseenter="aplicarResaltadoCarta"
         @mouseleave="quitarResaltadoCarta"
     )
-    div.c-carta.c-carta-oculta-top(v-if="valor === 0")
+    div.c-carta.c-carta-transparente(v-if="valor === -1")
+    // Carta oculta
+    div.c-carta.c-carta-oculta-top(v-else-if="valor === 0")
         div.c-carta-oculta(v-html="'&nbsp;'")
-    div.c-carta(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
+    // Carta de números
+    div.c-carta.c-carta-pointer(v-else-if="tipo === 0 || tipo === 1" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
         span.c-carta-numero {{ valorC }}
         div.c-carta-img
             v-img-simbolo(:tipo="nombreSimbolo")
-    div.c-carta(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
+    // Carta de dragon
+    div.c-carta.c-carta-pointer(v-else-if="tipo === 2 || tipo === 3 || tipo === 4 || tipo === 5" :class="['carta-' + tipoCarta, claseResaltado, claseDora]")
         img.img-dragon(:src="'/img/Dragon_' + colorDragon + '.webp'" :alt="'Dragon ' + colorDragon")
-    div.c-carta(v-else :class="['carta-' + tipoCarta, claseDora, claseResaltado]" v-html="valorC")
+    // Carta de realeza
+    div.c-carta.c-carta-pointer(v-else :class="['carta-' + tipoCarta, claseDora, claseResaltado]" v-html="valorC")
 
 //
 </template>
@@ -187,9 +192,12 @@ export default defineComponent({
     min-width: calc(var(--phx) * 5 * var(--escala))
     text-align: center
     vertical-align: middle
-    cursor: pointer
+    cursor: default
     transition: transform 50ms, opacity 50ms
     user-select: none
+
+.c-carta-pointer
+    cursor: pointer
 
 
 .c-carta-bonus
@@ -228,6 +236,9 @@ export default defineComponent({
     border: solid calc(var(--phx) * 0.4 * var(--escala)) var(--color-texto)
     border-radius: 0.1rem
     opacity: 0.75
+
+.c-carta-transparente
+    opacity: 0
 
 .c-carta-numero
     display: inline-block

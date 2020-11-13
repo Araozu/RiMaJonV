@@ -44,11 +44,7 @@ div.barra-lateral
         router-link(to="/") Yaku no acumulable
 
     router-link(to="/") Bonus
-    div.inner
-        router-link(to="/") Bonus cerrado
-        br
-        router-link(to="/") Bonus abierto
-
+    br
     router-link(to="/") Dragones
     div.inner
         router-link(to="/") Dragon de la partida

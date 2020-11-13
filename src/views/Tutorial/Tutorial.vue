@@ -1,5 +1,5 @@
 <template lang="pug">
-div.contenedor-tutorial
+div.contenedor-tutorial(:style="'--phx: ' + phx + '; --escala: 1;'")
     barra-lateral.layout
 
     div.layout.contenido
@@ -15,10 +15,18 @@ div.contenedor-tutorial
 import {defineComponent} from "vue";
 import barraLateral from "./components/barra-lateral.vue";
 import slotEstilos from "./components/slot-estilos.vue"
+import { useDimensions } from "@/components/useDimensions";
 
 export default defineComponent({
     name: "Tutorial",
-    components: {barraLateral, slotEstilos}
+    components: {barraLateral, slotEstilos},
+    setup() {
+        const {phx} = useDimensions();
+
+        return {
+            phx
+        }
+    }
 });
 
 </script>
