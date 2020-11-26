@@ -1,10 +1,10 @@
 <template lang="pug">
 div.barra-lateral
-    router-link(to="/tutorial/") Inicio
+    router-link(to="/tutorial") Inicio
     hr
-    router-link(to="/tutorial/cartas/") Cartas
+    router-link(to="/tutorial/cartas") Cartas
     br
-    router-link(to="/tutorial/mano/") Mano
+    router-link(to="/tutorial/mano") Mano
     div.inner
         router-link(to="/tutorial/mano/par") Par
         br
@@ -51,7 +51,7 @@ div.barra-lateral
         br
         router-link(to="/") Dragon del jugador
 
-    router-link(to="/") Puntaje
+    router-link(to="/tutorial/puntaje") Puntaje
     div.inner
         router-link(to="/") Al ganar robando la carta ganadora
         br

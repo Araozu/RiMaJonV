@@ -60,6 +60,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "bonus/",
                 component: () => import(/* webpackChunkName: "tutorial_bonus" */ "../views/Tutorial/views/Bonus.vue")
+            },
+            {
+                path: "puntaje/",
+                component: () => import(/* webpackChunkName: "tutorial_puntaje" */ "../views/Tutorial/views/Puntaje.vue")
             }
         ]
     }

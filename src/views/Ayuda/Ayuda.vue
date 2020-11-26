@@ -314,13 +314,6 @@ div
                 grupo-cartas(:cartas="[128, 128, 128, 192, 192, 192, 224, 224, 224, 256, 256]")
                 p No se acumula con ninguna otra combinación.
 
-    p Formula para puntos: 1000 + 270 * x^2 - 18 x^3
-    p Máxima cantidad de puntos: 10 - equivale a 10000
-
-    img(src="/img/formula_puntos_rimajon.png")
-    br
-    img(src="/img/grafica_puntos_rimajon.png")
-
 //
 </template>
 
