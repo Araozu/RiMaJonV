@@ -35,6 +35,7 @@ div
 
     p Todas las situaciones se detallan en la siguiente tabla:
 
+    - valorBonus = 5
     table.tabla-puntaje-bonus
         tbody
             tr
@@ -44,17 +45,17 @@ div
                 td 3 bonus en mano
             tr
                 td 1 indicador
-                td 0.3 puntos
-                td 0.6 puntos
-                td 0.9 puntos
+                td= valorBonus / 10 + ' puntos'
+                td= (valorBonus * 2) / 10 + ' puntos'
+                td= (valorBonus * 3) / 10 + ' puntos'
             tr
                 td 2 indicadores
-                td 0.9 puntos
-                td 1.8 puntos
+                td= (valorBonus * 3) / 10 + ' puntos'
+                td= (valorBonus * 6) / 10 + ' puntos'
                 td -
             tr
                 td 3 indicadores
-                td 2.7 puntos
+                td= (valorBonus * 9) / 10 + ' puntos'
                 td -
                 td -
             tr

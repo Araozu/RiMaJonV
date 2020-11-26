@@ -154,11 +154,7 @@ div
 
     div.tabla-puntos
 
-        h3 0.2 puntos - Bonus
-        div.yaku
-            p Cualquier bonus en una mano ganadora. 100% acumulable.
-
-        h3 1 puntos
+        h3 1 punto
 
         div.pad
 
@@ -177,7 +173,7 @@ div
             div.yaku
                 h4 Triple triples
                 p 3 triples
-                grupo-cartas(:cartas="[6, 6, 5, 48, 48, 49, 160, 160, 160, 192, 192]")
+                grupo-cartas(:cartas="[6, 6, 7, 48, 48, 49, 160, 160, 160, 192, 192]")
 
             div.yaku
                 h4 Interior
