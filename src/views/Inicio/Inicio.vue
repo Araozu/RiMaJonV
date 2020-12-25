@@ -15,6 +15,10 @@ div
     div(v-else)
         p Conectando al servidor...
 
+    p Modo de color: {{ modoColor }}
+    button(@click="cambiarModoColor('claro')") Cambiar a claro
+    button(@click="cambiarModoColor('oscuro')") Cambiar a oscuro
+
     br
     p
         router-link(to="/ayuda/") Ayuda
@@ -43,6 +47,7 @@ export default defineComponent({
 
         const idUsuario = computed(() => store.state.idUsuario);
         const nombreUsuario = computed(() => store.state.nombreUsuario);
+        const modoColor = computed(() => store.state.modoColor);
 
         onMounted(async () => {
             if (idUsuario.value && nombreUsuario.value) {
@@ -91,10 +96,17 @@ export default defineComponent({
             }
         });
 
+        const cambiarModoColor = (modo: string) => {
+            localStorage?.setItem("modoColorUsuario", modo);
+            store.commit("setModoColorUsuario", modo);
+        };
+
         return {
             datosVerificados,
             idUsuario,
-            nombreUsuario
+            nombreUsuario,
+            modoColor,
+            cambiarModoColor
         }
     }
 });
