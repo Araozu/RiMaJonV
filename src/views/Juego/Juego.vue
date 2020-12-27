@@ -60,7 +60,6 @@ export default defineComponent({
 
         const esPantallaCompleta = ref(false);
         const dora = ref([0, 0, 0, 0, 0]);
-        const doraOculto = ref([0, 0, 0, 0, 0]);
         const turnoActual = ref<string | undefined>(undefined);
         const cartasRestantes = ref(58);
         const cartaDescartada = ref(false);
@@ -115,8 +114,7 @@ export default defineComponent({
                         const d: DatosJuego = info.datos;
                         datosJuego.value = d;
                         dora.value = d.dora;
-                        doraOculto.value = info.datos.doraOculto;
-                        store.commit("setDora", [info.datos.dora, info.datos.doraOculto]);
+                        store.commit("setDora", [info.datos.dora]);
 
                         turnosDora.value = info.datos.turnosHastaDora;
                         dragonPartida.value = d.dragonPartida;
@@ -153,7 +151,6 @@ export default defineComponent({
                         const d = info.datos;
                         console.log(info.datos);
                         dora.value = info.datos.dora;
-                        doraOculto.value = info.datos.doraOculto;
                         store.commit("setDora", [...info.datos.dora, ...info.datos.doraOculto]);
                         cartaDescartada.value = false;
                         turnosDora.value = info.datos.turnosHastaDora;
@@ -206,7 +203,6 @@ export default defineComponent({
         const obtClaveMap = (s: string) => obtClave(map, s);
         return {
             dora,
-            doraOculto,
             turnosDora,
             cartasRestantes,
             dragonPartida,

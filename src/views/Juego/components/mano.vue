@@ -1,7 +1,7 @@
 <template lang="pug">
 div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
     contenedor-descartes(:cartas="mano.descartes" :esTurnoActual="esTurnoActual")
-    div.cont-opciones-mano(v-if="mano.esGanador === false")
+    div.cont-opciones-mano
         opcion-tri(v-if="oportunidadTri"
             :idUsuario="idUsuario"
             :ws="ws"
@@ -167,7 +167,12 @@ export default defineComponent({
         });
 
         const oportunidadWin = computed<Oportunidad | undefined>(() => {
-            return (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Win")
+            const op = (props.mano as Mano).oportunidades.find((obj: Oportunidad) => obj.nombreOportunidad === "Win");
+            if (op && (op as OportunidadWin).yaku.length > 0) {
+                return op;
+            } else {
+                return undefined;
+            }
         });
 
         const rutaDragonJugador = computed(() => {

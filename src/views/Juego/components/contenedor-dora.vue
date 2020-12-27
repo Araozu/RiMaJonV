@@ -35,13 +35,7 @@ export default defineComponent({
             }
             return narr;
         });
-        const doraAbierto = computed(() => {
-            const narr = [...store.state.dora[1]];
-            for (let i = narr.length; i < 5; i++) {
-                narr.push(0);
-            }
-            return narr;
-        });
+        const doraAbierto = [0, 0, 0, 0, 0];
 
         return {
             doraCerrado,

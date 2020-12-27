@@ -15,8 +15,8 @@ div
         h2 El código de la sala es {{idSala}}
         p Jugadores conectados:
         p(v-for="u in usuarios") Usuario: {{u.nombreUsuario}}
-        div(v-if="usuarios.length === 4")
-            button(@click="iniciarJuego") Iniciar el juego!
+
+        button(@click="iniciarJuego") Iniciar el juego!
 
     div(v-else-if="estado.startsWith('error') && estado.substr(6) === 'Sala no existe'")
         h1 Sala de espera - Error
