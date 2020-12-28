@@ -1,9 +1,9 @@
 dependencies:
   core-js: 3.6.5
   vue: 3.0.0
-  vue-router: 4.0.0-beta.12_vue@3.0.0
-  vuex: 4.0.0-beta.4_vue@3.0.0
-  vuex-persist: 3.1.3_vuex@4.0.0-beta.4
+  vue-router: 4.0.2_vue@3.0.0
+  vuex: 4.0.0-rc.2_vue@3.0.0
+  vuex-persist: 3.1.3_vuex@4.0.0-rc.2
 devDependencies:
   '@vue/cli-plugin-babel': 4.5.6_@vue+cli-service@4.5.6+vue@3.0.0
   '@vue/cli-plugin-router': 4.5.6_@vue+cli-service@4.5.6
@@ -8836,14 +8836,14 @@ packages:
     optional: true
     resolution:
       integrity: sha512-oouKUQWWHbSihqSD7mhymGPX1OQ4hedzAHyvm8RdyHh6m3oIvoRF+NM45i/bhNOlo8jCnuJhaSUf/6oDjv978g==
-  /vue-router/4.0.0-beta.12_vue@3.0.0:
+  /vue-router/4.0.2_vue@3.0.0:
     dependencies:
       vue: 3.0.0
     dev: false
     peerDependencies:
       vue: ^3.0.0
     resolution:
-      integrity: sha512-prbqAs2hSlKGt3U/Iyq8G62q/oprwmEd//a6x5M1uqP1aZxwjq0s27ZG8hfUSOOPB7SYg4NOydwy6zi/b3S2Ww==
+      integrity: sha512-LCsTSb5H25dZCxjsLasM9UED1BTg9vyTnp0Z9UhwC6QoqgLuHr/ySf7hjI/V0j2+xCKqJtecfmpghk6U8I2e4w==
   /vue-style-loader/4.1.2:
     dependencies:
       hash-sum: 1.0.2
@@ -8863,24 +8863,24 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ZMrAARZ32sGIaYKr7Fk2GZEBh/VhulSrGxcGBiAvbN4fhjl3tuJyNFbbbLFqGjndbLoBW66I2ECq8ICdvkKdJw==
-  /vuex-persist/3.1.3_vuex@4.0.0-beta.4:
+  /vuex-persist/3.1.3_vuex@4.0.0-rc.2:
     dependencies:
       deepmerge: 4.2.2
       flatted: 3.1.0
-      vuex: 4.0.0-beta.4_vue@3.0.0
+      vuex: 4.0.0-rc.2_vue@3.0.0
     dev: false
     peerDependencies:
       vuex: '>=2.5'
     resolution:
       integrity: sha512-QWOpP4SxmJDC5Y1+0+Yl/F4n7z27syd1St/oP+IYCGe0X0GFio0Zan6kngZFufdIhJm+5dFGDo3VG5kdkCGeRQ==
-  /vuex/4.0.0-beta.4_vue@3.0.0:
+  /vuex/4.0.0-rc.2_vue@3.0.0:
     dependencies:
       vue: 3.0.0
     dev: false
     peerDependencies:
-      vue: ^3.0.0-beta.10
+      vue: ^3.0.2
     resolution:
-      integrity: sha512-/+4E1dokq5cwbl4mohOqOj8h0vOLOWmLSqlqTf++bfmN9/JKWtwYfsBrzlK0sYrNfuYcpQeX0BVxQHoHXDfYZQ==
+      integrity: sha512-HCPzYGea1xL7fMpDoMiHKujC1Bi/HM9LS5ML0Kv55zQtZJvOl0Lq7eWvJoen+SI4Lf7p9V5AqcVsoLPXNBywjg==
   /watchpack-chokidar2/2.0.0:
     dependencies:
       chokidar: 2.1.8
@@ -9284,7 +9284,7 @@ specifiers:
   sass: ^1.26.5
   sass-loader: ^8.0.2
   typescript: ~3.9.3
-  vue: ^3.0.0-0
-  vue-router: ^4.0.0-0
-  vuex: ^4.0.0-0
+  vue: 3.0.0
+  vue-router: 4.0.2
+  vuex: 4.0.0-rc.2
   vuex-persist: ^3.1.3
