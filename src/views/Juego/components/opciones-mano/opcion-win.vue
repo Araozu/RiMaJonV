@@ -47,7 +47,7 @@ export default defineComponent({
 
         return {
             enviarSolicitudWin,
-            tamano: computed(() => (pH.value * -0.75) + "px")
+            tamano: computed(() => (pH.value * -0.25) + "px")
         }
     }
 });

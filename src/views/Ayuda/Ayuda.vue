@@ -20,6 +20,13 @@ div
             div.yaku
                 h4
                     i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
+                    | Mano completamente cerrada
+                p Ganar en tu turno con una mano cerrada
+                grupo-cartas(:cartas="[2, 4, 5, 7, 8, 42, 44, 46, 47, 48, 50]")
+
+            div.yaku
+                h4
+                    i.ph-lock-bold.img-lock(title="Solo en mano cerrada")
                     | Doble secuencia
                 p 2 secuencias iguales del mismo color en mano cerrada.
                 grupo-cartas(:cartas="[2, 2, 4, 5, 6, 7, 44, 45, 44, 128, 128]")

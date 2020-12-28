@@ -56,7 +56,7 @@ export default defineComponent({
     padding: var(--phx)
     border-radius: calc(var(--phx) / 2)
     font-size: calc(var(--phx) * 2.5)
-    box-shadow: 0 0 calc(var(--phx) * 0.75) calc(var(--phx) * 0.75) #dedede
+    box-shadow: 0 0 calc(var(--phx)) calc(var(--phx)) rgba(120, 120, 120, 0.25)
     background-color: var(--color-fondo)
 
 //

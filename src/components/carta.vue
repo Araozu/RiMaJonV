@@ -128,10 +128,10 @@ export default defineComponent({
         const claseDoraWatcher = getClaseDora(valorR, store);
         watchEffect(() => {
             if (claseDoraWatcher.value !== "") {
-                const tiempoHastaSig5s = 5000 - (new Date()).getTime() % 5000;
+                const tiempoHastaSigIntervalo = 4000 - (new Date()).getTime() % 4000;
                 setTimeout(() => {
                     claseDora.value = claseDoraWatcher.value;
-                }, tiempoHastaSig5s);
+                }, tiempoHastaSigIntervalo);
             }
         });
 
@@ -176,17 +176,24 @@ export default defineComponent({
 
 <style lang="sass">
 
+.cont-carta
+    margin-left: 1px
+
 .c-carta-resaltada
     transform: translateY(calc(var(--phx) * -1))
+    filter: saturate(1.75) !important
+    opacity: 1 !important
 
 .c-carta
+    opacity: 0.85
     position: relative
     font:
         size: calc(var(--phx) * 4 * var(--escala))
         weight: normal
         family: "Secular One", "Pt Serif", serif
     display: table-cell
-    border: solid calc(var(--phx) * 0.2 * var(--escala)) var(--color-borde)
+    border: solid calc(var(--phx) * 0.3 * var(--escala)) var(--color-borde)
+    margin-left: 1px
     width: calc(var(--phx) * 5 * var(--escala))
     height: calc(var(--phx) * 8.5 * var(--escala))
     min-width: calc(var(--phx) * 5 * var(--escala))
@@ -211,14 +218,14 @@ export default defineComponent({
         top: -95%
         width: 100%
         height: 100%
-        background-image: linear-gradient(135deg, rgba(210, 210, 210, 0.0) 0%, rgba(210, 210, 210, 0.0) 35%, rgba(210, 210, 210, 0.3) 45%, rgba(210, 210, 210, 0.9) 53%, rgba(210, 210, 210, 0.3) 57%, rgba(210, 210, 210, 0.0) 65%, rgba(210, 210, 210, 0.0) 100%)
-        transition: transform 500ms
-        animation-duration: 5s
+        background-image: linear-gradient(135deg, rgba(210, 210, 210, 0.0) 0%, rgba(210, 210, 210, 0.0) 45%, rgba(210, 210, 210, 0.3) 55%, rgba(210, 210, 210, 0.9) 63%, rgba(210, 210, 210, 0.3) 67%, rgba(210, 210, 210, 0.0) 75%, rgba(210, 210, 210, 0.0) 100%)
+        transition: transform 1000ms
+        animation-duration: 4s
         animation-name: brillocarta
         animation-iteration-count: infinite
 
 @keyframes brillocarta
-    35%
+    50%
         transform: translateY(200%)
 
     to

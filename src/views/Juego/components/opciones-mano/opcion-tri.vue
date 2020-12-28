@@ -73,7 +73,7 @@ export default defineComponent({
         return {
             enviarSolicitudSeq,
             obtCartas,
-            tamano: computed(() => (pH.value * -0.75) + "px"),
+            tamano: computed(() => (pH.value * -0.25) + "px"),
             escala: 0.5
         }
     }

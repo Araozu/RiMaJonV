@@ -21,7 +21,7 @@ div
 
     br
     p
-        router-link(to="/ayuda/") Ayuda
+        router-link(to="/ayuda/") Yaku
     br
     p
         router-link(to="/tutorial/") Tutorial

@@ -60,13 +60,13 @@ export default defineComponent({
 
 .cont-cuadrante-descarte
     position: absolute
-    width: 25%
+    width: 26%
     height: 20%
     bottom: 17%
-    right: 37.5%
+    right: 37%
     text-align: left
     border-top-style: solid
-    border-top-width: calc(var(--phx) * 1.25 * var(--escala))
+    border-top-width: calc(var(--phx) * 0.75 * var(--escala))
     border-top-color: transparent
 
 

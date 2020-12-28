@@ -53,7 +53,7 @@ export default defineComponent({
 
 
 .txt-cartas
-    font-size: calc(var(--phx) * 2)
+    font-size: calc(var(--phx) * 3)
 
 
 .img-dragon-partida
