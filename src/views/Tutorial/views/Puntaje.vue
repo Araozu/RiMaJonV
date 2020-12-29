@@ -4,7 +4,11 @@ div
 
     p Primero se obtienen los puntos otorgados por los yaku.
     p Luego se obtienen los puntos otorgados por los bonus.
-    p La suma de estos dos es la cantidad de puntos total. Luego se busca esa cantidad en la tabla:
+    p La suma de estos dos es la cantidad de puntos total. Para obtener las monedas se usa la formula:
+
+    p floor((5x^2) / 5) * 1500 + 500x
+
+    p En la siguiente tabla se muestran los valores comunes:
 
     table.tabla-puntaje
         thead
@@ -12,9 +16,12 @@ div
                 td Puntos
                 td Monedas
         tbody
-            tr(v-for="(p, i) in puntos")
-                td {{ i * 0.5 }}
-                td {{ p }}
+            tr(v-for="i in puntos")
+                td {{ i }}
+                td {{ formulaPuntos(i) }}
+
+    p La cantidad maxima de puntos es 10
+    p Cada jugador inicia con 100,000 monedas
 
 //
 </template>
@@ -22,35 +29,36 @@ div
 <script lang="ts">
 import { defineComponent } from "vue";
 
+const formulaPuntos = (x: number) => Math.floor((5 * x ** 2) / 5) * 1500 + 500 * x;
+
 const puntos = [
-    0,
-    0,
-    1000,
-    2000,
-    3000,
-    4000,
-    6000,
-    8000,
-    10000,
-    13000,
-    17000,
-    21000,
-    25000,
-    30000,
-    35000,
-    37000,
-    39000,
-    41000,
-    43000,
-    45000,
-    50000
+    1,
+    1.5,
+    2,
+    2.5,
+    3,
+    3.5,
+    4,
+    4.5,
+    5,
+    5.5,
+    6,
+    6.5,
+    7,
+    7.5,
+    8,
+    8.5,
+    9,
+    9.5,
+    10
 ];
 
 export default defineComponent({
     name: "Puntaje",
     setup() {
         return {
-            puntos
+            puntos,
+            formulaPuntos
         }
     }
 });
