@@ -36,7 +36,7 @@ export default defineComponent({
         },
         escala: {
             type: Number,
-            default: 0.75
+            default: 0.7
         },
         esTurnoActual: {
             type: Boolean,
@@ -60,14 +60,15 @@ export default defineComponent({
 
 .cont-cuadrante-descarte
     position: absolute
-    width: 26%
+    width: 23%
     height: 20%
     bottom: 17%
-    right: 37%
+    right: 38.5%
     text-align: left
     border-top-style: solid
-    border-top-width: calc(var(--phx) * 0.75 * var(--escala))
+    border-top-width: calc(var(--phx) / 2)
     border-top-color: transparent
+    transition: border-top-color 250ms
 
 
 .cont-cuadrante-descarte-turno-actual

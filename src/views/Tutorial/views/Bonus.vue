@@ -50,12 +50,12 @@ div
                 td= (valorBonus * 3) / 10 + ' puntos'
             tr
                 td 2 indicadores
-                td= (valorBonus * 3) / 10 + ' puntos'
-                td= (valorBonus * 6) / 10 + ' puntos'
+                td= (valorBonus * 2) / 10 + ' puntos'
+                td= (valorBonus * 4) / 10 + ' puntos'
                 td -
             tr
                 td 3 indicadores
-                td= (valorBonus * 9) / 10 + ' puntos'
+                td= (valorBonus * 4) / 10 + ' puntos'
                 td -
                 td -
             tr

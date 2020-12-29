@@ -242,7 +242,8 @@ export default defineComponent({
 
 .cont-2-juego
     position: absolute
-    border: solid 3px #795548
+    border: solid 5px #795548
+    border-radius: 5px
     background: radial-gradient(var(--color-mesa-1), var(--color-mesa-2))
     transform: rotateX(2deg)
     width: 100%

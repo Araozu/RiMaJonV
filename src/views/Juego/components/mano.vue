@@ -29,7 +29,7 @@ div.cont-cuadrante-2-mano(:style="'transform: rotate(' + posicionW + ')'")
         carta(:valor="-1")
         carta(:valor="mano.sigCarta" :fnDescartar="descartarCarta")
         carta(:valor="-1")
-        div(v-for="g in mano.cartasReveladas" :style="{display: 'inline-block'}")
+        div(v-for="g in mano.cartasReveladas" :style="{display: 'inline-block', marginLeft: '5px'}")
             carta(v-for="(c, i) in g" :valor="c" :key="i")
 
 //
