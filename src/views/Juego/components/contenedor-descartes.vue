@@ -56,7 +56,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{escala}">
+<style lang="sass">
 
 .cont-cuadrante-descarte
     position: absolute
