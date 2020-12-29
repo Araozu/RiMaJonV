@@ -1,5 +1,5 @@
 <template lang="pug">
-div.opcion-mano(@click="enviarSolicitudIgnorarOportunidad" :style="{backgroundColor: '#9E9E9E'}")
+div.opcion-mano(@click="enviarSolicitudIgnorarOportunidad" :style="'background-color: #9E9E9E; --tamano: ' + tamano + ';'")
     | Ignorar
 
 //
@@ -51,7 +51,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{tamano}">
+<style lang="sass">
 
 .opcion-mano
     display: inline-block

@@ -1,5 +1,5 @@
 <template lang="pug">
-div.cont-cuadrante-descarte(:class="claseTurnoActual")
+div.cont-cuadrante-descarte(:class="claseTurnoActual" :style="'--escala: ' + escala + ';'")
     div(v-for="cartas in grupoCartas")
         carta(v-for="(c, i) in cartas" :valor="c" :key="i")
 

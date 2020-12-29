@@ -1,5 +1,7 @@
 <template lang="pug">
-div
+div(
+    :style="'--escala: ' + escala + '; --pH: ' + pH + '; --phx: ' + phx + '; --pW: ' + pW + '; --pwx:' + pwx + ';'"
+)
     pantalla-ganador(:datos="datosJuego")
     contenedor-dora(:turnosRestantes="turnosDora")
     div.con-int-juego
@@ -228,7 +230,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{pH, phx, pW, pwx, escala}">
+<style lang="sass">
 
 .con-int-juego
     position: absolute

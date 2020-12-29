@@ -1,5 +1,5 @@
 <template lang="pug">
-div.contenedor-dora
+div.contenedor-dora(:style="'--escala: ' + escala + ';'")
     carta(v-for="(c, i) in doraCerrado" :valor="c" :key="i")
     br
     carta(v-for="(c, i) in doraAbierto" :valor="c" :key="i")
@@ -47,7 +47,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{escala}">
+<style lang="sass">
 
 .contenedor-dora
     position: fixed

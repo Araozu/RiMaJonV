@@ -1,5 +1,7 @@
 <template lang="pug">
-div.opcion-mano(@click="enviarSolicitudSeq()" :style="{backgroundColor: '#3F51B5'}")
+div.opcion-mano(@click="enviarSolicitudSeq()"
+    :style="'background-color: #3F51B5; --tamano: ' + tamano + '; --escala: ' + escala + ';'"
+)
     div.contenedor-cartas-opcion-mano
         carta(v-for="(c, i) in obtCartas()"
             :valor="c"
@@ -81,7 +83,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{tamano, escala}">
+<style lang="sass">
 
 .contenedor-cartas-opcion-mano
     position: absolute

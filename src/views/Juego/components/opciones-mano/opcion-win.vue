@@ -1,5 +1,7 @@
 <template lang="pug">
-div.opcion-mano(@click="enviarSolicitudWin()" :style="{backgroundColor: '#f44336'}")
+div.opcion-mano(@click="enviarSolicitudWin()"
+    :style="'background-color: #f44336; --tamano: ' + tamano + ';'"
+)
     span Win
 
 //
@@ -54,7 +56,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{tamano}">
+<style lang="sass">
 
 .opcion-mano
     position: relative

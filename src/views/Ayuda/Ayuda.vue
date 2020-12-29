@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(:style="'--phx: ' + phx + '; --escala: ' + escala + ';'")
     h1 Sobre el juego
     p Ri Ma Jon es un juego inspirado en Mahjong, pero ejecutado con cartas.
 
@@ -244,13 +244,14 @@ export default defineComponent({
 
 </script>
 
-<style lang="sass" vars="{phx, escala}">
+<style lang="sass">
 
 .pad
     padding-left: 2rem
 
 .tabla-puntos
     padding-left: 2rem
+
     h3
         text-decoration: underline
         font-size: 1.45rem
