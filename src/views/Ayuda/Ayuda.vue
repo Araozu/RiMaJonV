@@ -108,7 +108,7 @@ div
                 grupo-cartas(:cartas="[35, 37, 38, 40, 42, 45, 47, 48, 51, 52, 52]")
                 p No se acumula con "escalera", "negro" o "rojo".
 
-        h3 7 puntos
+        h3 8 puntos
 
         div.pad
 
