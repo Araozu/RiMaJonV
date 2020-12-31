@@ -185,7 +185,7 @@ export default defineComponent({
     opacity: 1 !important
 
 .c-carta
-    opacity: 0.85
+    opacity: 0.95
     position: relative
     font:
         size: calc(var(--phx) * 4 * var(--escala))

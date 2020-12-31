@@ -33,6 +33,10 @@ const aumentarValorA = (ref: Ref<number>, valorDestino: number) => {
 
 };
 
+const formulaPuntos = (x: number) => 1000 * Math.floor(
+    3 * x + (x ** 3 * 125) / 1000
+);
+
 export default defineComponent({
     name: "pantalla-ganador",
     components: {grupoCartas},
@@ -92,11 +96,7 @@ export default defineComponent({
             for (const y of yaku.value) {
                 n += obtValorYaku(y)
             }
-            if (n === 0) return 100;
-
-            const preValor = 1000 + (270 * n ** 2) - (18 * n ** 3);
-            // Eliminar los 2 ultimos números.
-            return Math.floor(preValor / 100) * 100;
+            return formulaPuntos(n);
         });
 
         const obtTextoYaku = (y: Yaku) => {

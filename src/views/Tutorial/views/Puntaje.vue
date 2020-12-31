@@ -6,7 +6,7 @@ div
     p Luego se obtienen los puntos otorgados por los bonus.
     p La suma de estos dos es la cantidad de puntos total. Para obtener las monedas se usa la formula:
 
-    p floor((5x^2) / 5) * 1500 + 500x
+    img(:src="'/img/formula-puntaje.png'" style="height: 100px; width: auto;")
 
     p En la siguiente tabla se muestran los valores comunes:
 
@@ -29,7 +29,9 @@ div
 <script lang="ts">
 import { defineComponent } from "vue";
 
-const formulaPuntos = (x: number) => Math.floor((5 * x ** 2) / 5) * 1500 + 500 * x;
+const formulaPuntos = (x: number) => 1000 * Math.floor(
+    3 * x + (x ** 3 * 125) / 1000
+);
 
 const puntos = [
     1,
