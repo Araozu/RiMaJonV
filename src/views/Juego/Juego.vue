@@ -3,6 +3,7 @@ div(
     :style="'--escala: ' + escala + '; --pH: ' + pH + '; --phx: ' + phx + '; --pW: ' + pW + '; --pwx:' + pwx + ';'"
 )
     pantalla-ganador(:datos="datosJuego")
+    pantalla-empate(v-if="esEmpate")
     contenedor-dora(:turnosRestantes="turnosDora")
     div.con-int-juego
         div.cont-2-juego
@@ -23,15 +24,16 @@ div(
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, onMounted, onUnmounted} from "vue";
+import { defineComponent, ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import { useDimensions } from "@/components/useDimensions";
 import { useStore } from "vuex";
 import { wsServidor } from "@/variables";
-import contenedorDora from "./components/contenedor-dora.vue"
+import contenedorDora from "./components/contenedor-dora.vue";
 import mano from "@/views/Juego/components/mano.vue";
-import contenedorCartas from "./components/contenedor-cartas.vue"
-import pantallaGanador from "./components/pantalla-ganador.vue"
+import contenedorCartas from "./components/contenedor-cartas.vue";
+import pantallaGanador from "./components/pantalla-ganador.vue";
+import pantallaEmpate from "./components/pantalla-empate.vue";
 import { EstadoJuego } from "@/views/Juego/types/EstadoJuego";
 import { DatosJuego } from "@/views/Juego/types/DatosJuego";
 import { Dragon, Mano } from "@/views/Juego/types/Mano";
@@ -54,7 +56,7 @@ const obtClave = (obj: any, valor: string): string | undefined => {
 
 export default defineComponent({
     name: "Juego",
-    components: {contenedorDora, mano, contenedorCartas, pantallaGanador},
+    components: {contenedorDora, mano, contenedorCartas, pantallaGanador, pantallaEmpate},
     setup() {
         const route = useRoute();
         const store = useStore();
@@ -202,6 +204,21 @@ export default defineComponent({
             }
         };
 
+        const esEmpate = computed(() => {
+            const juegoTerminado = datosJuego.value?.estadoJuego === "Terminado"
+            const manos = datosJuego.value?.manos
+            if (juegoTerminado && manos) {
+                for (const k in manos) {
+                    const m = manos[k];
+                    if (m.esGanador) return false;
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        });
+
         const obtClaveMap = (s: string) => obtClave(map, s);
         return {
             dora,
@@ -217,6 +234,7 @@ export default defineComponent({
             turnoActual,
             estadoJuego,
             datosJuego,
+            esEmpate,
             obtClaveMap,
             descartarCarta,
             pH,

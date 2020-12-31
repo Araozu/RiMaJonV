@@ -98,6 +98,7 @@ div(:style="'--phx: ' + phx + '; --escala: ' + escala + ';'")
                     | Triple triples cerrados
                 p 3 triples en mano cerrada
                 grupo-cartas(:cartas="[6, 6, 7, 48, 49, 49, 160, 160, 160, 192, 192]")
+                p No se acumula con "Triple triples".
 
         h3 5 puntos
 
