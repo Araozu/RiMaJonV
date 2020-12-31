@@ -1,50 +1,74 @@
 
 export type Yaku =
+    // 10
     | "DragonesFull"
     | "Verde"
+    // 8
     | "RealezaDragones"
     | "RealezaFull"
-    | "TripleTriplesCerrados"
+    | "EscaleraPerfecta"
+    | "A10"
+    // 5
     | "EscaleraFull"
+    // 3
+    | "TripleTriplesCerrados"
     | "Exterior"
+    // 2
     | "Escalera"
-    | "TripleCuadruples"
     | "Negro"
     | "Rojo"
     | "SemiExterior"
-    | "ParUnico"
-    | "DragonJugador"
-    | "DragonPartida"
+    | "DobleSecuenciaPura"
+    // 1
+    | "Dragones"
     | "Interior"
     | "TripleTriples"
-    | "TripleSecuenciaCerrada"
     | "Realeza"
-    | "DobleSecuenciaPura"
-    | "Cerrado"
+    | "DobleSecuencia"
+    | "ManoCerrada"
 
 
 export const obtValorYaku = (y: Yaku): number => {
     switch (y) {
-        case "DragonesFull": return 10
-        case "Verde": return 10
-        case "RealezaDragones": return 7
-        case "RealezaFull": return 7
-        case "TripleTriplesCerrados": return 3
-        case "EscaleraFull": return 3
-        case "Exterior": return 3
-        case "Escalera": return 2
-        case "TripleCuadruples": return 2
-        case "Negro": return 2
-        case "Rojo": return 2
-        case "SemiExterior": return 2
-        case "ParUnico": return 1
-        case "DragonJugador": return 1
-        case "DragonPartida": return 1
-        case "Interior": return 1
-        case "TripleTriples": return 1
-        case "TripleSecuenciaCerrada": return 1
-        case "Realeza": return 1
-        case "DobleSecuenciaPura": return 1
-        case "Cerrado": return 0
+        case "DragonesFull":
+            return 10;
+        case "Verde":
+            return 10;
+        case "RealezaDragones":
+            return 8;
+        case "RealezaFull":
+            return 8;
+        case "EscaleraPerfecta":
+            return 8;
+        case "A10":
+            return 8;
+        case "EscaleraFull":
+            return 5;
+        case "TripleTriplesCerrados":
+            return 3;
+        case "Exterior":
+            return 3;
+        case "Escalera":
+            return 2;
+        case "Negro":
+            return 2;
+        case "Rojo":
+            return 2;
+        case "SemiExterior":
+            return 2;
+        case "DobleSecuenciaPura":
+            return 2;
+        case "Dragones":
+            return 1;
+        case "Interior":
+            return 1;
+        case "TripleTriples":
+            return 1;
+        case "Realeza":
+            return 1;
+        case "DobleSecuencia":
+            return 1;
+        case "ManoCerrada":
+            return 1;
     }
 }
