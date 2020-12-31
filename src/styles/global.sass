@@ -4,8 +4,7 @@ body
   color: var(--color-texto)
   margin: 0
 
-// Claro
-.tema-automatico
+@mixin tema-claro
   --color-fondo: #ffffff
   --color-texto: #151515
   --color-fondo-transparente: rgba(255, 255, 255, 0.8)
@@ -18,26 +17,17 @@ body
   --color-fondo-reyes: #ffffff
   --color-texto-reyes: #2E7D32
 
-  --color-mesa-1: #E3F2FD
-  --color-mesa-2: #90CAF9
-
-.tema-claro
-  --color-fondo: #ffffff
-  --color-texto: #151515
-  --color-fondo-transparente: rgba(255, 255, 255, 0.8)
-  --color-borde: gray
-  --color-texto-carta-roja: #b71c1c
-  --color-fondo-carta-roja: #ffffff
-  --color-fondo-dragon-rojo: #ffffff
-  --color-fondo-dragon-verde: #ffffff
-  --color-fondo-dragon-azul: #ffffff
-  --color-fondo-reyes: #ffffff
-  --color-texto-reyes: #2E7D32
+  --color-fondo-resaltado-carta-roja: #64B5F6
+  --color-fondo-resaltado-carta-negra: #64B5F6
+  --color-fondo-resaltado-dragon-rojo: #64B5F6
+  --color-fondo-resaltado-dragon-verde: #64B5F6
+  --color-fondo-resaltado-dragon-azul: #64B5F6
+  --color-fondo-resaltado-reyes: #64B5F6
 
   --color-mesa-1: #E3F2FD
   --color-mesa-2: #90CAF9
 
-.tema-oscuro
+@mixin tema-oscuro
   --color-fondo: #151515
   --color-texto: #dedede
   --color-fondo-transparente: rgba(21, 21, 21, 0.85)
@@ -50,22 +40,26 @@ body
   --color-fondo-reyes: #2E7D32
   --color-texto-reyes: #ffffff
 
+  --color-fondo-resaltado-carta-roja: #e57373
+  --color-fondo-resaltado-carta-negra: #757575
+  --color-fondo-resaltado-dragon-rojo: #e57373
+  --color-fondo-resaltado-dragon-verde: #66BB6A
+  --color-fondo-resaltado-dragon-azul: #29B6F6
+  --color-fondo-resaltado-reyes: #66BB6A
+
   --color-mesa-1: #004D40
   --color-mesa-2: #003027
 
+// Claro
+.tema-claro
+  @include tema-claro
+
+.tema-oscuro
+  @include tema-oscuro
+
+.tema-automatico
+  @include tema-claro
+
 @media (prefers-color-scheme: dark)
   .tema-automatico
-    --color-fondo: #151515
-    --color-texto: #dedede
-    --color-fondo-transparente: rgba(21, 21, 21, 0.85)
-    --color-borde: #c1c1c1
-    --color-texto-carta-roja: #dedede
-    --color-fondo-carta-roja: #b71c1c
-    --color-fondo-dragon-rojo: #b71c1c
-    --color-fondo-dragon-verde: #2E7D32
-    --color-fondo-dragon-azul: #1565C0
-    --color-fondo-reyes: #2E7D32
-    --color-texto-reyes: #ffffff
-
-    --color-mesa-1: #004D40
-    --color-mesa-2: #003027
+    @include tema-oscuro

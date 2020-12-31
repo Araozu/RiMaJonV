@@ -179,13 +179,8 @@ export default defineComponent({
 .cont-carta
     margin-left: 1px
 
-.c-carta-resaltada
-    transform: translateY(calc(var(--phx) * -1))
-    filter: saturate(1.75) !important
-    opacity: 1 !important
 
 .c-carta
-    opacity: 0.95
     position: relative
     font:
         size: calc(var(--phx) * 4 * var(--escala))
@@ -218,7 +213,7 @@ export default defineComponent({
         top: -95%
         width: 100%
         height: 100%
-        background-image: linear-gradient(135deg, rgba(210, 210, 210, 0.0) 0%, rgba(210, 210, 210, 0.0) 45%, rgba(210, 210, 210, 0.3) 55%, rgba(210, 210, 210, 0.9) 63%, rgba(210, 210, 210, 0.3) 67%, rgba(210, 210, 210, 0.0) 75%, rgba(210, 210, 210, 0.0) 100%)
+        background-image: linear-gradient(135deg, rgba(169, 169, 169, 0.0) 0%, rgba(169, 169, 169, 0.0) 45%, rgba(169, 169, 169, 0.3) 55%, rgba(169, 169, 169, 0.9) 63%, rgba(169, 169, 169, 0.3) 67%, rgba(169, 169, 169, 0.0) 75%, rgba(169, 169, 169, 0.0) 100%)
         transition: transform 1000ms
         animation-duration: 4s
         animation-name: brillocarta
@@ -274,25 +269,46 @@ export default defineComponent({
     background-color: var(--color-fondo)
     color: var(--color-texto)
 
+.carta-cNegro.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-carta-negra) !important
+
 .carta-cRojo
     background-color: var(--color-fondo-carta-roja)
     color: var(--color-texto-carta-roja)
+
+.carta-cRojo.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-carta-roja) !important
 
 .carta-cReyes
     background-color: var(--color-fondo-reyes)
     color: var(--color-texto-reyes)
 
+.carta-cReyes.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-reyes) !important
+
 .carta-dNegro
     background-color: var(--color-fondo)
+
+.carta-dNegro.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-carta-negra) !important
 
 .carta-dRojo
     background-color: var(--color-fondo-dragon-rojo)
 
+.carta-dRojo.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-dragon-rojo) !important
+
 .carta-dVerde
     background-color: var(--color-fondo-dragon-verde)
 
+.carta-dVerde.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-dragon-verde) !important
+
 .carta-dAzul
     background-color: var(--color-fondo-dragon-azul)
+
+.carta-dAzul.c-carta-resaltada
+    background-color: var(--color-fondo-resaltado-dragon-azul) !important
 
 .carta-
     opacity: 0

@@ -1,10 +1,10 @@
 <template lang="pug">
-    div.contenedor-pantalla-empate
-        h1 Empate
-        hr
-        router-link(to="/") Ir al inicio
+div.contenedor-pantalla-empate
+    h1 Empate
+    hr
+    router-link(to="/") Ir al inicio
 
-    //
+//
 </template>
 
 <script lang="ts">
