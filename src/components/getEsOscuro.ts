@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { RiMaJonState } from "@/store";
+import type { RiMaJonState } from "../store/index";
 import { Store } from "vuex";
 
 export const getEsOscuro = (store: Store<RiMaJonState>) => {

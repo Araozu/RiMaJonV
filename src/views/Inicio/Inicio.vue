@@ -35,7 +35,7 @@ import {useStore} from "vuex";
 import crearUsuario from "./components/crear-usuario.vue";
 import crearSala from "./components/crear-sala.vue";
 import entrarSala from "./components/entrar-sala.vue";
-import { servidorF } from "@/variables";
+import {servidorF} from "../../variables"
 
 export default defineComponent({
     name: "Inicio",

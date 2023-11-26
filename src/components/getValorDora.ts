@@ -1,6 +1,7 @@
 import { Store } from "vuex";
-import { RiMaJonState } from "@/store";
-import { computed, ComputedRef } from "vue";
+import type { RiMaJonState } from "../store";
+import { computed} from "vue";
+import type { ComputedRef } from "vue";
 
 export const getClaseDora = (valor: ComputedRef<number>, store: Store<RiMaJonState>) => computed<string>(() => {
     const [dora1] = store.state.dora;
