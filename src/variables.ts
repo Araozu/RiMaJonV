@@ -1,4 +1,3 @@
-export const servidor = "0.0.0.0:8080"; // "rimajonb.araozu.dev"; // "0.0.0.0:8080"; //
-export const servidorF = `http://${servidor}`;
-export const wsServidor = `ws://${servidor}`;
+export const servidorF = import.meta.env.VITE_BACKEND_URL + "/api";
+export const wsServidor = import.meta.env.VITE_WS_URL + "/api";
 
